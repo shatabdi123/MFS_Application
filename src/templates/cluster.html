@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 5px 30px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top:20px;
+  margin-left:1000px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+</style>
+</head>
+<body>
+<div>
+      {{ table | safe }}
+    </div>
+<div>
+    <!--<p>Auto width:</p>-->
+    <a href="static/dist_plot/plot.png" download class="download"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
+
+</div>
+<img src="data:image/png;base64, {{ plot_graph }}">
+
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/main.css">
+      <!--add icon link -->
+     <link rel = "icon" type = "image/x-icon" href ="static/forecast_logo.png">
+    <title>Gene Prediction Model</title>
+    <style>
+      div {
+        background-image: url('static/bg1.png');
+      }
+      </style>
+  </head>
+
+  <body>
+    <div class="container_main">
+      <div class="sub_container" id="holder">
+          <table>
+            <tr><td><IMG SRC="static/forecast_logo.png" ALT="tries" WIDTH=120 HEIGHT=60 style="margin-right: 60px;"></td>
+            <td><center><h1 class='main_heading' >Core Gene Prediction Model </h1></center></td>
+            <td><right><a href="/"><h1 style="margin-left: 80px;margin-top: 0px !important;">Home</h1> </a></right></td>
+          </tr>
+        </table>
+        <hr style="height:3px;border-width:0;color:gray;background-color:gray">
+        <p>Gradient Boosting model is developed based on 25 features that classify whether the Gene is Core or Non-Core.
+          For classifying the Genes, users are requested to submit their data in the form as per the value range
+          provided in the input placeholder.
+        <b>[Note: For predicted value, please check the footer of the table.]</b></p>
+
+        <table class="t1">
+        <form class="form-horizontal" action="{{ url_for('predict')}}" method="post">
+          <div class="form-group">
+            <div class="col-sm-10">
+                <thead>
+                  <tr><th colspan="2"><b><h4>Submission Form </h4></b></th></tr>
+                </thead>
+                <tfoot>
+                  <tr><th colspan="2"><center><b><h4>{{ prediction_text}}</h4></b></center></th></tr>
+                </tfoot>
+                 <tr><td><label for = "ka_div_ks_plus1_x">ka/ks ratio sorghum vs B73 :</label></td>
+                  <td>
+                    <span>
+                      <input  class="form-control" type= "text" name="ka_div_ks_plus1_x" placeholder="Value range: 0.00 - 100.00" required="required" />
+                    </span>
+                </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "EREB_138">Transcription Factor EREB 138 Count :</label></td>
+            <td>
+          <span><input  class="form-control" type="text" name="EREB_138" placeholder="Value range: 0.00 - 9.00" required="required" /></span>
+          </td></tr>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "Total_PFAM_x">Total PFAM domain Count:</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="Total_PFAM_x" placeholder="Value range: 0.00 - 1.00" required="required" />
+        </span>
+      </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+        <tr><td><label for = "ka_div_ks_plus1_y">ka/ks ratio Tzi8 vs B73 :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="ka_div_ks_plus1_y" placeholder="Value range: 0.00 - 307.25" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "Origin_Tandem">Tandem Genes :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="Origin_Tandem" placeholder="Value range: 0.00 - 1.00" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "Ear_E6_Repression/Activation">Ear E6 Repression/Activation Histone modification Count :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="Ear_E6_Repression/Activation" placeholder="Value range: 0.00 - 6.00" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "dTSS_root">Transcription Start Site Root Count:</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="dTSS_root" placeholder="Value range: 0.00 - 14.00" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "dis_to_Knob">Distance to Knob:</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="dis_to_Knob" placeholder="Value range: 0.00 - 237017383" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "Ks_B73_vs_sorghum">Ks B73 vs Sorghum :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="Ks_B73_vs_sorghum" placeholder="Value range: 0.00 - 157.73" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "V5_TE">Transposable Elememt Count :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="V5_TE" placeholder="Value range: 0.00 - 295.00" size="5" required="required"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+            <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "UTR3length">3 Prime UTR Length :</label></td>
+            <td>
+          <span><input  class="form-control" type="text" name="UTR3length" placeholder="Value range: 0.00 - 8154.00" required="required" /></span>
+          </td></tr>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "TC_WDR">Tri Codon WDR:</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_WDR" placeholder="Value range: 0.00 - 0.018" required="required" />
+        </span>
+      </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+        <tr><td><label for = "TC_HEN">Tri Codon HEN :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_HEN" placeholder="Value range: 0.00 - 0.0147" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "TC_WAA">Tri Codon WAA:</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_WAA" placeholder="Value range: 0.00 - 0.0208" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "chrom_chr10">Chromosome 10 :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="chrom_chr10" placeholder="Value range: 0.00 - 1.00" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "SNPS">SNPS :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="SNPS" placeholder="Value range: 0.00 - 9592.00" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "1kb_EREB_29">Transcription Factor 1kb EREB 29 Count :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="1kb_EREB_29" placeholder="Value range: 0.00 - 6.00" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "TC_GRR">Tri Codon GRR :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_GRR" placeholder="Value range: 0.00 - 0.038" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "dTSS_shoot">Transcription Start Site Shoot Count :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="dTSS_shoot" placeholder="Value range: 0.00 - 16.00" size="5" required="required"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+            <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "gene_breadth">Gene Breadth :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="gene_breadth" placeholder="Value range: 0.00 - 171.00" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "dis_to_cen">Distance to Centomere :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="dis_to_cen" placeholder="Value range: 0.00 - 170670191" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "Leaf_E1_Activation">Leaf E1 Activation Histone modification Count :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="Leaf_E1_Activation" placeholder="Value range: 0.00 - 4.00" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "1kb_ARF_34">Transcription Factor 1kb ARF 34 Count :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="1kb_ARF_34" placeholder="Value range: 0.00 - 5.00" size="5" required="required"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+            <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "1kb_EREB_138">Transcription Factor 1kb EREB 138 Count :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="1kb_EREB_138" placeholder="Value range: 0.00 - 6.00" size="5" required="required"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+            <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "LBD19">Transcription Factor LBD19 Count :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="LBD19" placeholder="Value range: 0.00 - 13.00" size="5" required="required"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+         <tr><td colspan="2"><button type="submit" class="btnsub">PREDICT</button></td></tr>
+        </div>
+      </div>
+    </form>
+    <h2 class="result"></h2>
+              </table>
+  </div>
+  </div>
+  </body>
+</html>

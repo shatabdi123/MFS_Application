@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+ <style>
+.btn {
+  <!--background-color: DodgerBlue;-->
+  border: none;
+  color: black;
+  padding: 5px 30px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top:20px;
+  <!--margin-left:1000px;-->
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  <!--background-color: RoyalBlue;-->
+}
+</style>
+ <body>
+ <div style="display: flex;">
+  <h2>Download genes in each cluster :  &nbsp;</h2>
+  <a href="static/dist_plot/cluster_dendo.html" download class="download"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
+  </div>
+     <div id='chart' class='chart'”></div>
+</body>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script type='text/javascript'>
+  var graphs = {{graphJSON | safe}};
+  Plotly.plot('chart',graphs,{});
+</script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+     <style>
+        div.dataTables_wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+     </style>
+</head>
+<body>
+<table id="example" class="display nowrap" width="100%"></table>
+
+<script>
+var dataSet = {{ select|safe }}
+
+var my_columns = [];
+
+$.each( dataSet[0], function( key, value ) {
+        var my_item = {};
+        my_item.data = key;
+        my_item.title = key;
+        my_columns.push(my_item);
+});
+
+$(document).ready(function() {
+  $('#example').DataTable({
+    "scrollX": true,
+    data: dataSet,
+    "columns": my_columns
+  });
+});
+</script>
+</body>
+</html>

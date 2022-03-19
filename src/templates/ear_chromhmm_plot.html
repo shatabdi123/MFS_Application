@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="header" style="height:15%;width:100%;">
+    <div style='float:left'>
+        <img src="{{url_for('static', filename= user_image)}}" width="700" height="600" />
+    </div>
+    <div style='float:leftt'>
+        <h2>Chromatin State Annotation in Ear</h2>
+        <table border="1" width=500" style="margin-left:30%;float:top;">
+            <tr>
+                <th>Chromatin States</th>
+                <th>Histone Combination</th>
+                <th>Annotation</th>
+            </tr>
+            <tr>
+                <td>State 1 (E1)</td>
+                <td>  </td>
+                <td>low signal</td>
+            </tr>
+            <tr>
+                <td>State 2 (E2)</td>
+                <td>H3K36me3 H3K4me3</td>
+                <td>activation genebodies promoters</td>
+              </tr>
+            <tr>
+                <td>State 3 (E3)</td>
+                <td>H3K36me3</td>
+                <td>activation genebodies</td>
+              </tr>
+            <tr>
+                <td>State 4 (E4)</td>
+                <td>H3K36me3 H3K4me3 H3K56ac</td>
+                <td>activation genebodies</td>
+              </tr>
+            <tr>
+                <td>State 5 (E5)</td>
+                <td>H3K4me3	H3K56ac</td>
+                <td>activation genebodies</td>
+              </tr>
+            <tr>
+                <td>State 6 (E6)</td>
+                <td>H3K4me3	H3K27me3</td>
+                <td>Repression/activation promoters</td>
+              </tr>
+            <tr>
+                <td>State 7 (E7)</td>
+                <td>H3K27me3 </td>
+                <td>Repression promoters</td>
+              </tr>
+            <tr>
+                <td>State 8 (E8)</td>
+                <td>H3K56ac</td>
+                <td>activation genebodies</td>
+              </tr>
+            <tr>
+                <td>State 9 (E9)</td>
+                <td>  </td>
+                <td>low signal</td>
+              </tr>
+
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

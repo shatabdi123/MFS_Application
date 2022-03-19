@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+     <style>
+        div.dataTables_wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+   .analysis_menu{
+  min-width: 250px;
+  min-height: 30px;
+}
+
+p {
+text-align: justify;
+text-justify: inter-word;
+}
+     </style>
+</head>
+<body>
+<div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Protein Localization features</h3>
+                </div>
+
+<form method="post" id="framework_form">
+<!--<form method="post" id="framework_form" action="/featuresBoot">-->
+<div class="container">
+<h4>Protein Localization</h4>
+<div class="bs-multiselect">
+<select id = "mltislct" name="comp_select" multiple = "multiple">
+    <option value="Subcel1" name="Subcel1">Subcel1</option>
+<option value="Subcel2">Subcel2</option>
+<option value="Subcel3">Subcel3</option>
+<option value="Subcel4">Subcel4</option>
+<option value="Subcel5">Subcel5</option>
+<option value="Type" name="type">Type</option>
+<option value="Localization" name="Localization">Localization</option>
+<option value="Nucleus">Nucleus</option>
+<option value="Cytoplasm">Cytoplasm</option>
+<option value="Extracellular">Extracellular</option>
+<option value="Mitochondrion">Mitochondrion</option>
+<option value="Cell_membrane">Cell membrane</option>
+<option value="Endoplasmic_reticulum" name="Endoplasmic_reticulum">Endoplasmic reticulum</option>
+<option value="Plastid">Plastid</option>
+<option value="Golgi_apparatus">Golgi apparatus</option>
+<option value="Lysosome_Vacuole">Lysosome Vacuole</option>
+<option value="Peroxisome">Peroxisome</option>
+</select>
+</div>
+    <h4>Labels</h4>
+    <div class="bs-multiselect">
+<select id = "mltislct1" name="comp_select" multiple = "multiple">
+    <option value="no_label" name="no_label">No Label</option>
+<option value="classical_label" name="classical">Classical</option>
+<option value="core_label" name="core">Pan-genome</option>
+<option value="Origin" name="Origin">Gene Origin</option>
+</select>
+</div>
+    </div>
+<br>
+<br>
+<div style="width:200px;height:85px;margin-left:22px" class="btn1">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button4" onclick="submitForm('/ProteinLocalization)" id="bttn1">Submit for table</button>
+</div>
+    <div class="container">
+<h4>Choose analysis</h4>
+<select class="analysis_menu" name="comp_analysis" style=" background-color: #fff;
+  border: none;
+  color: Black;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16xpx;
+  cursor: pointer;
+  width: 18.3em;
+  height:35px;
+border-radius: 5px;" id="analysis">
+    <option value="none" style="color:black">Select one analysis</option>
+     <option value="categorical_bar_chart">Categorical Bar chart</option>
+    <option value="Kmode_cluster_plots">K-mode Bar plot</option>
+
+</select>
+        </div>
+    <br>
+<br>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn2">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button5" onclick="submitForm('/ProteinLocalization_plot')"  id="bttn2">Submit for analysis</button>
+</div>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn3">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_ProteinLocalization_plot')"  id="bttn3">Downsampled analysis</button>
+</div>
+
+</form>
+                <ul class="list-unstyled CTAs">
+                    <li><a href="static/collection_zip/codon.zip" class="download">Download source</a></li>
+                    <li><a href="static/collection_zip/All_data.zip" class="article">Download all</a></li>
+                </ul>
+            </nav>
+     <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="navbar-brand" href="/">Home</a></li>
+                                <li><a class="navbar-brand" href="/features">Features and Analysis</a></li>
+                                <!--<li><a class="navbar-brand" href="#">Models</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+               <p style="color:blue;font-size:20px;">Please go through the below explanation for details on table and plot
+                    interpretations</p>
+                <h3>Table column interpretation:</h3>
+                <br>
+                <h4>Subcellular Localization by WoLF PSORT</h4>
+                <p>WoLF PSORT is an extension of the PSORT II program for protein subcellular localization prediction,
+                    which is based on the PSORT principle. WoLF PSORT converts a protein's amino acid sequences into
+                    numerical localization features; based on sorting signals, amino acid composition and functional
+                    motifs. After conversion, a simple k-nearest neighbor classifier is used for prediction.Further
+                    details about the programme can be found here:
+                <br>
+                <a href="https://academic.oup.com/nar/article/35/suppl_2/W585/2920788">https://academic.oup.com/nar/article/35/suppl_2/W585/2920788</a>
+                <br>
+                    The first five results(a list of proteins of known localization with the most similar
+                    localization features to the query) from WoLF PSORT output is displayed in the table as:
+                </p><br>
+
+                <h4>1. Subcel1</h4>
+                <h4>2. Subcel2</h4>
+                <h4>3. Subcel3</h4>
+                <h4>4. Subcel4</h4>
+                <h4>5. Subcel5 </h4>
+                <br>
+                 <h4>Subcellular Localization by DeepLoc </h4>
+                <p>DeepLoc, a prediction algorithm using deep neural networks to predict protein subcellular localization
+                    relying only on sequence information. At its core, the prediction model uses a recurrent neural
+                    network that processes the entire protein sequence and an attention mechanism identifying protein
+                    regions important for the subcellular localization.Further
+                    details about the programme can be found here:
+                <br>
+                <a href="https://academic.oup.com/bioinformatics/article/33/21/3387/3931857">https://academic.oup.com/bioinformatics/article/33/21/3387/3931857</a>
+                <br>
+                    DeepLoc can differentiate between 10 different localizations: Nucleus, Cytoplasm, Extracellular,
+                    Mitochondrion,
+                    Cell membrane, Endoplasmic reticulum, Chloroplast, Golgi apparatus, Lysosome/Vacuole and Peroxisome.
+                    The probabilities of each localization for the query gene sequence as well as the likelihood of the protein sequence
+                    being soluble or membrane is displayed in the table as:
+                </p><br>
+
+                <h4>7. Type (soluble/membrane)</h4>
+                <h4>8. Localization (maximum probability localization)</h4>
+                <h4>9. Nucleus</h4>
+                <h4>10. Cytoplasm</h4>
+                <h4>11. Extracellular </h4>
+                <h4>12. Mitochondrion</h4>
+                <h4>13. Cell membrane</h4>
+                <h4>14. Endoplasmic reticulum</h4>
+                <h4>15. Plastid</h4>
+                <h4>16. Golgi apparatus </h4>
+                <h4>17. Lysosome/Vacuole</h4>
+                <h4>18. Peroxisome</h4>
+
+                <br>
+                <h4>19. Labels </h4>
+                <p>The labels are the classes or the groups the genes are mapped into.The labels can act as both target variable or feature
+                as per the need of the user for solving their specific problem </p>
+               <h4>19.1 No Label</h4>
+                <p>This selection is provided to enable user to view the properties of all genes without labeling
+                    them into different gene categories or annotations. This is to let user examine the features of
+                    multiple genes and identify common patterns among them. As it involves the inspection of
+                all the genes therefore they work only for "Submit for analysis" button .</p>
+                <h4>19.2 Classical Genes</h4>
+                <p>Classical genes can be defined as most studied genes for visible mutant phenotype (for example: liguleless3). </p>
+                <h4>19.3 Pan-genome Genes </h4>
+                <p>A gene in a given taxonomic group is either present in every individual (core), or absent in at least a single
+                    individual (dispensable) and so on . </p>
+                <h4>19.4 Origin Genes </h4>
+                <p>Gene duplication is an important evolutionary mechanism allowing to provide new genetic material and thus
+                    opportunities to acquire new gene functions for an organism . There are different Origins of duplications
+                    such as WGD, Tandem and so on. </p>
+                <br>
+               <h3>Graph interpretations:</h3>
+
+                <p>To the top right corner of the plots/graphs, there are also options to download plot,
+                    zoom-out/zoom in, reset axes, autoscale, toggle spike lines, show closest data on hover, compare data on hover, box select,Pan
+                and lasso. Users can also select specific legends to view data only for the selected legends. Details on the interactive plot options are available here:
+                <br>
+                    <a href = https://plotly.com/chart-studio-help/getting-to-know-the-plotly-modebar/>Interactive graph features</a>
+                    </p>
+
+
+                <h4>1. Categorical Bar chart </h4>
+                <p>The Categorical Bar chart shows the frequency distribution of the different categories in the
+                    selected protein structures such as Signal Peptides.
+                The X-axis in the Categorical bar chart represents the different categories in the selected protein structure.
+                The Y-axis represents the frequency of the categories in the selected protein structure. In addition to the graph,to
+                    increase the interpretability of the data, We have also included P-values, mean and standard deviations of the selected
+                    datasets. </p>
+
+                <h4>2. K-mode bar plot</h4>
+                <p>KModes clustering is one of the unsupervised Machine Learning algorithms that is used to cluster
+                    categorical variables. <br>
+                Clustering is an unsupervised learning method whose task is to divide the population or data points into
+                    a number of groups, such that data points in a group are more similar to other data points in the
+                    same group and dissimilar to the data points in other groups. It is basically a collection of
+                    objects based on similarity and dissimilarity between them.<br>
+                In the K-mode bar plot, we divided our observations for the selected protein structures into K-clusters.
+             <br>The X-axis in the K-mode bar plot represents the K-clusters within each categories of the selected protein localizations.
+                     <br>
+                The Y-axis represents the frequency of the K-clusters within each categories in the selected protein structure.  </p>
+
+            </div>
+    </div>
+
+<script>
+var dataSet = {{ select|safe }}
+
+var my_columns = [];
+
+$.each( dataSet[0], function( key, value ) {
+        var my_item = {};
+        my_item.data = key;
+        my_item.title = key;
+        my_columns.push(my_item);
+});
+
+$(document).ready(function() {
+  $('#example').DataTable({
+    "scrollX": true,
+    data: dataSet,
+    "columns": my_columns
+  });
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct').multiselect({
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct1').multiselect({
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct2').multiselect({
+multiple: false,
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script type="text/javascript">
+ $(document).ready(function () {
+     $('#sidebarCollapse').on('click', function () {
+         $('#sidebar').toggleClass('active');
+         $(this).toggleClass('active');
+     });
+ });
+</script>
+<script>
+ function submitForm(action) {
+    var form = document.getElementById('framework_form');
+    form.action = action;
+    form.submit();
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/main.css">
+      <!--add icon link -->
+     <link rel = "icon" type = "image/x-icon" href ="static/forecast_logo.png">
+    <title>Gene Prediction Model</title>
+    <style>
+      div {
+        background-image: url('static/bg1.png');
+      }
+      </style>
+  </head>
+
+  <body>
+    <div class="container_main">
+      <div class="sub_container" id="holder">
+          <table>
+            <tr><td><IMG SRC="static/forecast_logo.png" ALT="tries" WIDTH=120 HEIGHT=60 style="margin-right: 60px;"></td>
+            <td><center><h1 class='main_heading' >Core Gene Prediction Model </h1></center></td>
+            <td><right><a href="/"><h1 style="margin-left: 80px;margin-top: 0px !important;">Home</h1> </a></right></td>
+          </tr>
+        </table>
+        <hr style="height:3px;border-width:0;color:gray;background-color:gray">
+        <p>Random Forest model is developed based on top 25 sequence features and gene structural features that classify whether the Gene is Core or Non-Core.
+          For classifying the Genes, users are requested to submit their data in the form as per the value range
+          provided in the input placeholder or autofill the required protein and DNA sequence feature by entering the protein
+          and the coding sequence in the input boxes.
+        <b>[Note: For predicted value, please check the footer of the table.]</b></p>
+        <br>
+        <p style="margin-left: 150px;">Enter your protein sequence for generating protein sequence features : </p>
+        <form  action="{{ url_for('handle_data') }}" method="post">
+            <!--<input style=" margin: auto;display: block;" type="text" name="projectFilepath">-->
+            <!--<input type="submit"></p>-->
+          <!--<input type="submit"value="Submit" style="float: right;width: 150px;height: 40px;margin-top: 25px;margin-right: 20px;" />-->
+           <div style="overflow: hidden;">
+           <input type="text" name="projectFilepath" style="width: 620px;
+            height: 100px; margin: auto;display: block;" />
+           </div>
+          <p style="margin-left: 150px; ;margin-top: 25px">Enter your Coding sequence for generating DNA sequence features : </p>
+           <div style="overflow: hidden;">
+           <input type="text" name="DNAcoding" style="width: 620px;
+            height: 100px; margin: auto;display: block;" />
+           </div>
+          <input type="submit" style="width: 200px;height: 40px;margin-top: 25px;margin-left: 350px;"></p>
+        </form>
+        </form>
+        <table class="t1">
+        <form class="form-horizontal" action="{{ url_for('predict_basic')}}" method="post">
+          <div class="form-group">
+            <div class="col-sm-10">
+                <thead>
+                  <tr><th colspan="2"><b><h4>Submission Form </h4></b></th></tr>
+                </thead>
+                <tfoot>
+                  <tr><th colspan="2"><center><b><h4>{{ prediction_text}}</h4></b></center></th></tr>
+                </tfoot>
+                 <tr><td><label for = "UTR3length">3 Prime UTR Length :</label></td>
+                  <td>
+                    <span>
+                      <input  class="form-control" type= "text" name="UTR3length" placeholder="Value range: 0.00 - 100.00" required="required" />
+                    </span>
+                </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "isoforms">Isoforms Count :</label></td>
+            <td>
+          <span><input  class="form-control" type="text" name="isoforms" placeholder="Value range: 0.00 - 9.00" required="required" /></span>
+          </td></tr>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "UTR5length">5 prime UTR length:</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="UTR5length" placeholder="Value range: 0.00 - 1.00" required="required" />
+        </span>
+      </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+        <tr><td><label for = "distance">Chromosomal distance:</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="distance" placeholder="Value range: 0.00 - 307.25" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "CTDD_prop7_G3_residue0">CTDD prop7 G3 residue0 :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="CTDD_prop7_G3_residue0" placeholder="Value range: 0.00 - 1.00" required="required" value="{{CTDD_prop7_G3_residue0}}" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "PseDNC_Xc1_AT">PseDNC Xc1 AT :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="PseDNC_Xc1_AT" placeholder="Value range: 0.00 - 6.00" required="required" value="{{PseDNC_Xc1_AT}}" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "CTDD_prop1_G2_residue0">CTDD prop1 G2 residue0 :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="CTDD_prop1_G2_residue0" placeholder="Value range: 0.00 - 14.00" required="required" value="{{CTDD_prop1_G2_residue0}}" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "PseKNC_3_Xc1_ACG">PseKNC 3 Xc1 ACG :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="PseKNC_3_Xc1_ACG" placeholder="Value range: 0.00 - 237017383" required="required"  value="{{PseKNC_3_Xc1_ACG}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "avgExonLength">Average Exon Length :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="avgExonLength" placeholder="Value range: 0.00 - 157.73" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "TC_SAL">Tri Codon SAL :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_SAL" placeholder="Value range: 0.00 - 295.00" size="5" required="required" value="{{TC_SAL}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+            <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "PseDNC_Xc1_GG">PseDNC Xc1 GG :</label></td>
+            <td>
+          <span><input  class="form-control" type="text" name="PseDNC_Xc1_GG" placeholder="Value range: 0.00 - 8154.00" required="required"  value="{{PseDNC_Xc1_GG}}"/></span>
+          </td></tr>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "PseKNC_3_Xc1_TAG">PseKNC 3 Xc1 TAG :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="PseKNC_3_Xc1_TAG" placeholder="Value range: 0.00 - 0.018" required="required" value="{{PseKNC_3_Xc1_TAG}}" />
+        </span>
+      </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+        <tr><td><label for = "CTDD_prop5_G2_residue0">CTDD prop5 G2 residue0 :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="CTDD_prop5_G2_residue0" placeholder="Value range: 0.00 - 0.0147" required="required" value="{{CTDD_prop5_G2_residue0}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "TC_PAP">Tri Codon PAP:</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_PAP" placeholder="Value range: 0.00 - 0.0208" required="required" value="{{TC_PAP}}" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "mRNAlength">Canonical mRNA Length :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="mRNAlength" placeholder="Value range: 0.00 - 1.00" required="required" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "CTDD_prop2_G3_residue0">CTDD prop2 G3 residue0 :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="CTDD_prop2_G3_residue0" placeholder="Value range: 0.00 - 9592.00" required="required" value="{{CTDD_prop2_G3_residue0}}" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "TC_LPL">Tri Codon LPL :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_LPL" placeholder="Value range: 0.00 - 6.00" required="required" value="{{TC_LPL}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "TC_RSA">Tri Codon RSA :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_RSA" placeholder="Value range: 0.00 - 0.038" required="required" value="{{TC_RSA}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "PAAC_Xc1_A">PAAC Xc1 A :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="PAAC_Xc1_A" placeholder="Value range: 0.00 - 16.00" size="5" required="required" value="{{PAAC_Xc1_A}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+            <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "CTriad_VS111">CTriad VS111 :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="CTriad_VS111" placeholder="Value range: 0.00 - 171.00" required="required" value="{{CTriad_VS111}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "CTDD_prop7_G1_residue0">CTDD prop7 G1 residue0 :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="CTDD_prop7_G1_residue0" placeholder="Value range: 0.00 - 170670191" required="required" value="{{CTDD_prop7_G1_residue0}}" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "PAAC_Xc1_P">PAAC Xc1 P :</label></td>
+          <td>
+          <span>
+          <input  class="form-control" type="text" name="PAAC_Xc1_P" placeholder="Value range: 0.00 - 4.00" required="required" value="{{PAAC_Xc1_P}}" />
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "TC_VVA">Tri Codon VVA :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_VVA" placeholder="Value range: 0.00 - 5.00" size="5" required="required" value="{{TC_VVA}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+            <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "PseKNC_3_Xc1_TGT">PseKNC 3 Xc1 TGT :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="PseKNC_3_Xc1_TGT" placeholder="Value range: 0.00 - 6.00" size="5" required="required"  value="{{PseKNC_3_Xc1_TGT}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+            <div class="form-group">
+        <div class="col-sm-10">
+          <tr><td><label for = "TC_ARG">Tri Codon ARG :</label></td>
+            <td>
+          <span>
+          <input  class="form-control" type="text" name="TC_ARG" placeholder="Value range: 0.00 - 13.00" size="5" required="required" value="{{TC_ARG}}"/>
+          </span>
+        </td></tr>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+         <tr><td colspan="2"><button type="submit" class="btnsub">PREDICT</button></td></tr>
+        </div>
+      </div>
+    </form>
+    <h2 class="result"></h2>
+              </table>
+  </div>
+  </div>
+  </body>
+</html>

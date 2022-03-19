@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+     <style>
+      .multiselect-container {
+        width: 100% !important;
+    }
+        div.dataTables_wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+   .analysis_menu{
+  min-width: 250px;
+  min-height: 30px;
+}
+     </style>
+</head>
+<body>
+<div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Gene Expression Features</h3>
+                </div>
+
+<form method="post" id="framework_form">
+<!--<form method="post" id="framework_form" action="/featuresBoot">-->
+<div class="container">
+<h4>Gene Expression</h4>
+<div class="bs-multiselect">
+<select id = "mltislct" name="comp_select" multiple = "multiple">
+<!--<option value="ID" name="ID">Gene ID</option>-->
+    <option value="rmr6_leaf_control_T0">rmr6 leaf control T0</option>
+<option value="rmr6_leaf_drought_salt_T0" name="rmr6_leaf_drought_salt_T0">rmr6 leaf drought salt T0</option>
+<option value="wt_leaf_drought_T0" name="wt_leaf_drought_T0">wt leaf drought T0</option>
+<option value="Embryo_22_DAP" name="Embryo_22_DAP">Embryo 22 DAP</option>
+<option value="Endosperm_16_DAP" name="Endosperm_16_DAP">Endosperm 16 DAP</option>
+<option value="Internode_6_7_y" name="Internode_6_7_y">Internode 6 7</option>
+<option value="Internode_7_8_y" name="Internode_7_8_y">Internode 7 8</option>
+<option value="avg_gene_abundance" name="avg_gene_abundance">Average gene abundance</option>
+<option value="gene_breadth" name="gene_breadth">gene breadth</option>
+<option value="Max_FPKM" name="Max_FPKM">Max FPKM</option>
+</select>
+</div>
+    <h4>Labels</h4>
+    <div class="bs-multiselect">
+<select id = "mltislct2" name="comp_select" multiple = "multiple">
+    <option value="none" name="none">No Label</option>
+<option value="classical_label" name="classical">classical</option>
+<option value="core_label" name="core">core</option>
+<option value="Origin" name="Origin">Gene Origin</option>
+</select>
+</div>
+    </div>
+<br>
+<br>
+<div style="width:200px;height:85px;margin-left:22px" class="btn1">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button4" onclick="submitForm('/GeneExp)" id="bttn1">Submit for table</button>
+</div>
+    <div class="container">
+<h4>Choose analysis</h4>
+<select class="analysis_menu" name="comp_analysis" style=" background-color: #fff;
+  border: none;
+  color: Black;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16xpx;
+  cursor: pointer;
+  width: 18.3em;
+  height:35px;
+border-radius: 5px;" id="analysis">
+    <option value="none" style="color:black">Select one analysis</option>
+    <option value="histogram">Histogram</option>
+    <option value="Count_and_distribution">Count and distribution</option>
+    <option value="Pair_plots">Pair plots</option>
+    <option value="Box_plots">Box plots</option>
+    <option value="Violin_plots">Violin plots</option>
+    <option value="Joint_plots">Joint plots</option>
+    <option value="Scatter_plots">Scatter plots</option>
+    <option value="Correlation_plots">Correlation plots</option>
+    <option value="Count_downsampled_Hierarchial_heatmap">downsampled Hierarchial heatmap</option>
+    <option value="Count_downsampled_hierarchial_scatter_plot">downsampled Hierarchial scatterplot</option>
+    <option value="Count_downsampled_dendogram_plot">downsampled dendogram plot</option>
+    <option value="Heatmap_plots">Heatmap</option>
+    <option value="PCA_2D_samples_plots">PCA 2D Samples cluster</option>
+    <option value="PCA_3D_samples_plots">PCA 3D Samples cluster</option>
+    <option value="PCA_2D_label_plots">PCA 2D Labels cluster</option>
+</select>
+        </div>
+    <br>
+<br>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn2">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button5" onclick="submitForm('/GeneExp_plot')"  id="bttn2">Submit for analysis</button>
+</div>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn3">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_GeneExp_plot')"  id="bttn3">Downsampled analysis</button>
+</div>
+
+</form>
+                <ul class="list-unstyled CTAs">
+                    <li><a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a></li>
+                    <li><a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a></li>
+                </ul>
+            </nav>
+     <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/exploratory">Exploratory Analysis</a></li>
+                                <!--<li><a href="#">Models</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <p>According to the features selected,the data table will be displayed below.Users can sort each of the columns according to their requirement.Options for exporting the data in different formats will also be available soon.</p>
+                <table id="example" class="display nowrap" width="100%"></table>
+
+            </div>
+    </div>
+
+<script>
+var dataSet = {{ select|safe }}
+
+var my_columns = [];
+
+$.each( dataSet[0], function( key, value ) {
+        var my_item = {};
+        my_item.data = key;
+        my_item.title = key;
+        my_columns.push(my_item);
+});
+
+$(document).ready(function() {
+  $('#example').DataTable({
+    "scrollX": true,
+    data: dataSet,
+    "columns": my_columns
+  });
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct').multiselect({
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct1').multiselect({
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct2').multiselect({
+multiple: false,
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script type="text/javascript">
+ $(document).ready(function () {
+     $('#sidebarCollapse').on('click', function () {
+         $('#sidebar').toggleClass('active');
+         $(this).toggleClass('active');
+     });
+ });
+</script>
+<script>
+ function submitForm(action) {
+    var form = document.getElementById('framework_form');
+    form.action = action;
+    form.submit();
+  }
+</script>
+</body>
+</html>

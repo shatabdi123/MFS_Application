@@ -1,0 +1,57 @@
+<!-- here we add our contact forms -->
+<!-- add the right css file -->
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/contact.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="contact" style="
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin: 0 auto;
+    width: 820px;
+">
+    <h1  style="font-size: 40px;">Contact us</h1>
+    <h2 style="color: blue;">Please Provide your feedback!</h2>
+    <form action="{{ url_for('get_contact') }}" method=post style="margin: 0 auto;
+    width: 820px;" >
+        <div>
+            <!-- name forms -->
+            <p>
+                {{ form.name.label }} <br>
+                {{ form.name(placeholder='Your name') }}
+            </p>
+            <!-- email forms -->
+            <p>
+                {{ form.email.label }} <br>
+                {{ form.email(placeholder='Your e-mail ...') }}
+            </p>
+            <!-- Subject of your request -->
+            <p>
+                {{ form.subject.label }}<br>
+                {{form.subject(placeholder='Your subject ...')}}
+            </p>
+            <!-- Content of your request -->
+            <p>
+                {{ form.message.label }}<br>
+                {{ form.message(placeholder='Write your feedback ...' ,style="height: 142px;") }}
+            </p>
+            <!-- Submit button -->
+             <p>
+                {{ form.submit(style="font-size: 20px;margin-top: 10px;cursor: pointer; width: 220;
+                margin-right: 310px;float: right;") }}
+            </p>
+            <p style="  display: inline-block;
+  width: calc(50% - 4px);
+  margin: 0 auto;"> <a href="/">Go Back</a> </p>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+
+
+
+

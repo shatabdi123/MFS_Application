@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+    <!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+     <style>
+      .multiselect-container {
+        width: 100% !important;
+    }
+     .select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
+        div.dataTables_wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+
+#sidebar {
+    min-width: 400px;
+    max-width: 400px;
+}
+
+p {
+text-align: justify;
+text-justify: inter-word;
+}
+
+     </style>
+</head>
+<body>
+<div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Protein sequence Features</h3>
+                </div>
+
+<form method="post" id="framework_form">
+<!--<form method="post" id="framework_form" action="/featuresBoot">-->
+<div class="container">
+<h4>Protein Composition and Autocorrelation </h4>
+<select name="comp_select"  id='selUser' style="width: 25.3em;">
+    <optgroup label="Amino Acid Composition">
+  <option value="AAC" name="AAC">Monopeptide(AAC)</option>
+<option value="DC" name="DC">Dipeptide(DC)</option>
+<option value="TC" name="TC">Tripeptide(TC)</option>
+</optgroup>
+<optgroup label="Autocorrelation">
+  <option value="Moreau" name="Moreau">Moreau-Broto(Moreau)</option>
+<option value="Moran" name="Moran">Moran(Moran)</option>
+<option value="Geary" name="Geary">Geary(Geary)</option>
+</optgroup>
+    <optgroup label="CTD descriptors">
+  <option value="Composition" name="Composition">Composition</option>
+<option value="Transition" name="Transition">Transition</option>
+<option value="Distribution" name="Distribution">Distribution</option>
+</optgroup>
+    <optgroup label="Conjoint descriptors">
+ <option value="CTriad" name="CTriad">Conjoint triad descriptors(CTriad)</option>
+</optgroup>
+    <optgroup label="Quasi-Sequence-order descriptors">
+  <option value="SOCN" name="SOCN">Sequence order coupling number(SOCN)</option>
+<option value="QSO" name="QSO">Quasi-Sequence-order descriptors(QSO)</option>
+</optgroup>
+     <optgroup label="Pseudo-amino acid composition">
+<option value="PAAC" name="PAAC">Pseudo(PAAC)</option>
+<option value="APAAC" name="APAAC">Amphiphilic(APAAC)</option>>
+</optgroup>
+</select>
+    <h4>Labels</h4>
+    <div class="bs-multiselect">
+<select id = "mltislct2" name="comp_select" multiple = "multiple">
+    <option value="no_label" name="no_label">No Label</option>
+<option value="classical_label" name="classical">Classical</option>
+<option value="core_label" name="core">Pan-genome</option>
+<option value="Origin" name="Origin">Gene Origin</option>
+</select>
+</div>
+</div>
+<br>
+<br>
+<div style="width:200px;height:85px;margin-left:22px" class="btn1">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 14em;
+border-radius: 12px;" class="button button4" onclick="submitForm('/Proteinseq)" id="bttn1">Submit for table</button>
+</div>
+    <div class="container">
+<h4>Choose analysis</h4>
+<select name="comp_analysis" style=" width: 25.3em;"  id='selUser1' class="form-control" >
+    <optgroup label="Graphical analysis">
+    <option value="none" style="color:black">Select one analysis</option>
+    <option value="count_dipeptide_box_plots">Frequency Dipeptide box plot</option>
+    <option value="count_tripeptide_box_plots">Frequency Tripeptide box plot</option>
+
+    </optgroup>
+</select></div>
+
+    <br>
+<br>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn2">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 14em;
+border-radius: 12px;" class="button button5" onclick="submitForm('/Proteinseq_plot')"  id="bttn2">Submit for analysis</button>
+</div>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn3">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 14em;
+border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_Proteinseq_plot')"  id="bttn3">Downsampled analysis</button>
+</div>
+
+</form>
+                <ul class="list-unstyled CTAs">
+                    <li><a href="static/collection_zip/pep_seq_features.zip" class="download">Download source</a></li>
+                    <li><a href="static/collection_zip/All_data.zip" class="article">Download all</a></li>
+                </ul>
+            </nav>
+     <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="navbar-brand" href="/">Home</a></li>
+                                <li><a class="navbar-brand" href="/features">Features and Analysis</a></li>
+                                <!--<li><a href="/exploratory">Exploratory Analysis</a></li>-->
+                                <!--<li><a class="navbar-brand" href="#">Models</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <p style="color:blue;font-size:20px;">Please go through the below explanation for details on table and plot
+                    interpretations</p>
+                <h3>Table column interpretation:</h3>
+                <h4>1. Monopeptide (Amino acid composiiton AAC)</h4>
+                <p>The amino acid composition describes the fraction of each amino acid type within a protein sequence. The
+                    fractions of all 20 natural amino acids are calculated as:
+                    <br> f(r)= Nr/N &nbsp;&nbsp;r = 1,2,…,20. <br>
+                where Nr is the number of the amino acid type r and N is the length of the sequence.</p>
+                <h4>2. Dipeptide Composition Descriptor (DC) </h4>
+                <p>Dipeptide composition gives a 400-dimensional descriptor, defined as: The
+                    fractions of all 20 natural amino acids are calculated as:
+                    <br> f(r,s)= Nrs/N-1 &nbsp;&nbsp;r,s = 1,2,…,20. <br>
+                where Nrs is the number of dipeptide represented by amino acid type r and type s.</p>
+                <h4>3.  Tripeptide Composition Descriptor (TC) </h4>
+                <p>Tripeptide composition gives a 8000-dimensional descriptor, defined as: The
+                    fractions of all 20 natural amino acids are calculated as:
+                    <br> f(r,s,t)= Nrst/N-2 &nbsp;&nbsp;r,s,t = 1,2,…,20. <br>
+                where Nrst is the number of tripeptides represented by amino acid type r, s, and t.</p>
+                <h4>4. Autocorrelation Descriptors </h4>
+                <p>Autocorrelation descriptors are defined based on the distribution of amino acid properties along the
+                    sequence. The amino acid properties used here are various types of amino acids index.Three types of
+                    autocorrelation descriptors are : </p>
+                <h4>    4.1. Normalized Moreau-Broto autocorrelation descriptors (Monreau) </h4>
+                <h4>    4.2. Moran autocorrelation descriptors (Moran) </h4>
+                <h4>    4.3. Geary autocorrelation descriptors (Geary) </h4>
+                <br>
+                <h4>5. Composition/Transition/Distribution </h4>
+                <p>The amino acids are categorized into three classes according to its attribute, and each amino acid is
+                    encoded by one of the indices 1, 2, 3 according to which class it belongs. The attributes used here include
+                    hydrophobicity, normalized van der Waals volume, polarity, and polarizability. Three types of descriptors,
+                    Composition (C), Transition (T), and Distribution (D) can be calculated for a given attribute as follows :
+                </p>
+                <h4>    5.1. Composition (CTDC) </h4>
+                <h4>    5.2. Transition (CTDT) </h4>
+                <h4>    5.3. Distribution (CTDD) </h4>
+                <br>
+                <h4>6. Conjoint Triad Descriptors </h4>
+                <p>Conjoint triad descriptors are proposed by Shen et al. (2007). The conjoint triad descriptors were used to
+                    model protein-protein interactions based on the classification of amino acids. In this approach,
+                    each protein sequence is represented by a vector space consisting of descriptors of amino acids. </p>
+                <h4>7. Quasi-sequence-order Descriptors </h4>
+                <p>The quasi-sequence-order descriptors are proposed by Chou (2000).
+                    They are derived from the distance matrix between the 20 amino acids. Two types of descriptors are :
+                </p>
+                <h4>    7.1. Sequence-order-coupling number (SOCN) </h4>
+                <h4>    7.2. Quasi-sequence-order descriptors (QSO) </h4>
+                <br>
+                <h4>8.  Pseudo-Amino Acid Composition (PseAAC) </h4>
+                <p>This group of descriptors are proposed by Chou (2001). PseAAC descriptors are also named as the type 1
+                    pseudo-amino acid composition. Let Ho1(i), Ho2(i), Mo(i) (i=1,2,3,…,20) be the original hydrophobicity
+                    values, the original hydrophilicity values and the original side chain masses of the 20 natural amino
+                    acids, respectively.
+                </p>
+                <br>
+                <h4>9. Amphiphilic Pseudo-Amino Acid Composition (APseAAC) </h4>
+                <p>Amphiphilic Pseudo-Amino Acid Composition (APseAAC) was proposed in Chou (2001). APseAAC is also recognized
+                    as the type 2 pseudo-amino acid composition. The definitions of these qualities are similar to the
+                    PAAC descriptors.
+                </p>
+                <br>
+                <h4>10. Labels </h4>
+                <p>The labels are the classes or the groups the genes are mapped into.The labels can act as both target variable or feature
+                as per the need of the user for solving their specific problem </p>
+                <h4>10.1 No Label</h4>
+                <p>This selection is provided to enable user to view the properties of all genes without labeling
+                    them into different gene categories or annotations. This is to let user examine the features of
+                    multiple genes and identify common patterns among them. As it involves the inspection of
+                all the genes therefore they work only for "Submit for analysis" button .</p>
+                <h4>10.2 Classical Genes</h4>
+                <p>Classical genes can be defined as most studied genes for visible mutant phenotype (for example: liguleless3). </p>
+                <h4>10.3 Pan-genome Genes </h4>
+                <p>A gene in a given taxonomic group is either present in every individual (core), or absent in at least a single
+                    individual (dispensable) and so on . </p>
+                <h4>10.4 Origin Genes </h4>
+                <p>Gene duplication is an important evolutionary mechanism allowing to provide new genetic material and thus
+                    opportunities to acquire new gene functions for an organism . There are different Origins of duplications
+                    such as WGD, Tandem and so on. </p>
+                <br>
+               <h3>Graph interpretations:</h3>
+
+                <h4>3. Frequency Dipeptide box plot</h4>
+                <p>The Frequency Dipeptide box plot describes the fraction of each dipeptide type within a peptide sequence.
+                    The fractions are calculated as:
+                <br>f(r) = Nrs/N <br>
+                where Nrs is the number of dipeptide represented by dipeptide type r and type s and N is the length of the
+                chosen labeled peptide sequence.</p>
+
+                <h4>4. Frequency Tripeptide box plot</h4>
+                <p>The Frequency tripeptide box plot describes the fraction of each tripeptide type within a peptide sequence.
+                The fractions are calculated as:
+                <br>f(r) = Nrsh/N <br>
+                where Nrsh is the number of tripeptide represented by tripeptide  type r,type s and type h and N is the
+                length of the chosen labeled peptide sequence.</p>
+
+                <h5>For further details on these features please go through the below pipeline :</h5>
+                <p>All the features are generated using the R package:  protr for generating various numerical
+                    representation schemes of protein sequences . </p>
+                <!--<table id="example" class="display nowrap" width="100%"></table>-->
+
+            </div>
+    </div>
+
+<script>
+var dataSet = {{ select|safe }}
+
+var my_columns = [];
+
+$.each( dataSet[0], function( key, value ) {
+        var my_item = {};
+        my_item.data = key;
+        my_item.title = key;
+        my_columns.push(my_item);
+});
+
+$(document).ready(function() {
+  $('#example').DataTable({
+    "scrollX": true,
+    data: dataSet,
+    "columns": my_columns
+  });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+$('#mltislct2').multiselect({
+multiple: false,
+maxHeight: 200,
+buttonWidth:'350px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script type="text/javascript">
+ $(document).ready(function () {
+     $('#sidebarCollapse').on('click', function () {
+         $('#sidebar').toggleClass('active');
+         $(this).toggleClass('active');
+     });
+ });
+</script>
+<script>
+ function submitForm(action) {
+    var form = document.getElementById('framework_form');
+    form.action = action;
+    form.submit();
+  }
+</script>
+
+<script>
+    $(document).ready(function(){
+
+  // Initialize select2
+  $("#selUser").select2();
+});
+</script>
+<script>
+    $(document).ready(function(){
+
+  // Initialize select2
+  $("#selUser1").select2();
+
+});
+</script>
+</body>
+</html>

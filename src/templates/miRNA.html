@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+     <style>
+      .multiselect-container {
+        width: 100% !important;
+    }
+        div.dataTables_wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+   .analysis_menu{
+  min-width: 250px;
+  min-height: 30px;
+}
+p {
+text-align: justify;
+text-justify: inter-word;
+}
+     </style>
+</head>
+<body>
+<div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>miRNA Features</h3>
+                </div>
+
+<form method="post" id="framework_form">
+<!--<form method="post" id="framework_form" action="/featuresBoot">-->
+<div class="container">
+<h4>miRNA Counts</h4>
+<div class="bs-multiselect">
+<select id = "mltislct" name="comp_select" multiple = "multiple">
+<!--<option value="ID" name="ID">Gene ID</option>-->
+    <optgroup label="miRNA">
+<option value="Within_miRNA" name="Within_miRNA">Within miRNA</option>
+    </optgroup>
+    <optgroup label="1Kb miRNA">
+               <option value="1kb_miRNA" name="1kb_miRNA">1kb miRNA</option>
+    </optgroup>
+    <optgroup label="5Kb miRNA">
+        <option value="5kb_miRNA" name="5kb_miRNA">5kb miRNA</option>
+    </optgroup>
+</select>
+</div>
+    <h4>Labels</h4>
+    <div class="bs-multiselect">
+<select id = "mltislct2" name="comp_select" multiple = "multiple">
+    <option value="no_label" name="no_label">No Label</option>
+<option value="classical_label" name="classical">Classical</option>
+<option value="core_label" name="core">Pan-genome</option>
+<option value="Origin" name="Origin">Gene Origin</option>
+</select>
+</div>
+    </div>
+<br>
+<br>
+<div style="width:200px;height:85px;margin-left:22px" class="btn1">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button4" onclick="submitForm('/miRNA)" id="bttn1">Submit for table</button>
+</div>
+    <div class="container">
+<h4>Choose analysis</h4>
+<select class="analysis_menu" name="comp_analysis" style=" background-color: #fff;
+  border: none;
+  color: Black;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16xpx;
+  cursor: pointer;
+  width: 18.3em;
+  height:35px;
+border-radius: 5px;" id="analysis">
+    <option value="none" style="color:black">Select one analysis</option>
+ <option value="histogram">Histogram</option>
+</select>
+        </div>
+    <br>
+<br>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn2">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button5" onclick="submitForm('/miRNA_plot')"  id="bttn2">Submit for analysis</button>
+</div>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn3">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_miRNA_plot')"  id="bttn3">Downsampled analysis</button>
+</div>
+
+</form>
+                <ul class="list-unstyled CTAs">
+                    <li><a href="static/collection_zip/chrom_states_features.zip" class="download">Download source</a></li>
+                    <li><a href="static/collection_zip/All_data.zip" class="article">Download all</a></li>
+                </ul>
+            </nav>
+     <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                 <li><a class="navbar-brand" href="/">Home</a></li>
+                                <li><a class="navbar-brand" href="/features">Features and Analysis</a></li>
+                                <!--<li><a class="navbar-brand" href="#">Models</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <p style="color:blue;font-size:20px;">Please go through the below explanation for details on table and plot
+                    interpretations</p>
+                <h3>Table column interpretation:</h3>
+
+               <p> MicroRNAs (miRNAs) are endogenous non-coding small RNAs that play essential regulatory roles in plant
+                   development and environmental stress responses.
+                   <br>
+                    <br>
+
+                   Therefore, for all miRNA's, counts were calculated
+                   for three regions: one using the gene body,second inclusive of the upstream and downstream region,
+                   defined as a 1KB region directly upstream of the gene start site, and
+                    1 KB region directly downstream of the gene end site, third covering larger base pair inclusive of the upstream and
+                   downstream region, defined as a 5KB region directly upstream of the gene start site, and
+                    5 KB region directly downstream of the gene end site:
+               </p>
+                <br>
+                <h4>1. Within miRNA ( miRNA within the gene model)  </h4>
+                <h4>2. 1kb miRNA ( miRNA within 1kb of the gene model)</h4>
+                <h4>3. 5kb miRNA ( miRNA within 5kb of the  gene model)</h4>
+                <br>
+                <h4>4. Labels </h4>
+                <p>The labels are the classes or the groups the genes are mapped into.The labels can act as both target variable or feature
+                as per the need of the user for solving their specific problem </p>
+                <h4>4.1 No Label</h4>
+                <p>This selection is provided to enable user to view the properties of all genes without labeling
+                    them into different gene categories or annotations. This is to let user examine the features of
+                    multiple genes and identify common patterns among them. As it involves the inspection of
+                all the genes therefore they work only for "Submit for analysis" button .</p>
+                <h4>4.2 Classical Genes</h4>
+                <p>Classical genes can be defined as most studied genes for visible mutant phenotype (for example: liguleless3). </p>
+                <h4>4.3 Pan-genome Genes </h4>
+                <p>A gene in a given taxonomic group is either present in every individual (core), or absent in at least a single
+                    individual (dispensable) and so on . </p>
+                <h4>4.4 Origin Genes </h4>
+                <p>Gene duplication is an important evolutionary mechanism allowing to provide new genetic material and thus
+                    opportunities to acquire new gene functions for an organism . There are different Origins of duplications
+                    such as WGD, Tandem and so on. </p>
+                <br>
+               <h3>Graph interpretations:</h3>
+
+                <p>To the top right corner of the plots/graphs, there are also options to download plot,
+                    zoom-out/zoom in, reset axes, autoscale, toggle spike lines, show closest data on hover, compare data on hover, box select,Pan
+                and lasso. Users can also select specific legends to view data only for the selected legends. Details on the interactive plot options are available here:
+                <br>
+                    <a href = https://plotly.com/chart-studio-help/getting-to-know-the-plotly-modebar/>Interactive graph features</a>
+
+                </p>
+
+
+                <h4>1. Histogram</h4>
+                <p>The Histogram shows the frequency distribution of the selected insertion feature such as
+                    Within miRNA, 1kb miRNA and 5kb miRNA.
+                The X-axis in the histogram represents the range of values present in the selected insertion.
+                The Y-axis represents the frequency of values. In addition to the graph,to increase the interpretability of the data,
+                We have also included P-values,mean and standard deviations of the selected datasets. </p>
+
+                <b>For further details on these features please go through the below tool :</b>
+                <br>
+
+                <a href= "https://jbrowse.maizegdb.org/"> https://jbrowse.maizegdb.org/</a>
+
+            </div>
+    </div>
+
+<script>
+var dataSet = {{ select|safe }}
+
+var my_columns = [];
+
+$.each( dataSet[0], function( key, value ) {
+        var my_item = {};
+        my_item.data = key;
+        my_item.title = key;
+        my_columns.push(my_item);
+});
+
+$(document).ready(function() {
+  $('#example').DataTable({
+    "scrollX": true,
+    data: dataSet,
+    "columns": my_columns
+  });
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct').multiselect({
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct1').multiselect({
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct2').multiselect({
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script type="text/javascript">
+ $(document).ready(function () {
+     $('#sidebarCollapse').on('click', function () {
+         $('#sidebar').toggleClass('active');
+         $(this).toggleClass('active');
+     });
+ });
+</script>
+<script>
+ function submitForm(action) {
+    var form = document.getElementById('framework_form');
+    form.action = action;
+    form.submit();
+  }
+</script>
+</body>
+</html>

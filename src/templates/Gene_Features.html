@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+     <style>
+        div.dataTables_wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+   .analysis_menu{
+  min-width: 250px;
+  min-height: 30px;
+}
+
+p {
+text-align: justify;
+text-justify: inter-word;
+}
+     </style>
+</head>
+<body>
+<div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Gene Features</h3>
+                </div>
+
+<form method="post" id="framework_form">
+<!--<form method="post" id="framework_form" action="/featuresBoot">-->
+<div class="container">
+<h4>Gene Structures</h4>
+<div class="bs-multiselect">
+<select id = "mltislct" name="comp_select" multiple = "multiple">
+<option value="genelength" name="genelength">Gene length</option>
+<option value="exonNum">Exon number</option>
+<option value="UTR3length">p3UTR length</option>
+<option value="UTR5length">p5UTR length</option>
+<option value="CDSlength">CDS length</option>
+<option value="mRNAlength">mRNA length</option>
+<option value="chromosome">Chromosome</option>
+<option value="isoforms">Isoform</option>
+</select>
+</div>
+    <h4>Labels</h4>
+    <div class="bs-multiselect">
+<select id = "mltislct1" name="comp_select" multiple = "multiple">
+<option value="no_label" name="no_label">No Label</option>
+<option value="classical_label" name="classical">Classical</option>
+<option value="core_label" name="core">Pan-genome</option>
+<option value="Origin" name="Origin">Gene Origin</option>
+</select>
+</div>
+    </div>
+<br>
+<br>
+<div style="width:200px;height:85px;margin-left:22px" class="btn1">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button4" onclick="submitForm('/Structure)" id="bttn1">Submit for table</button>
+</div>
+    <div class="container">
+<label for="cluster" style="font-size: 18px;font-family: inherit;font-weight: 500;
+    line-height: 1.1;
+    color: inherit;">Choose cluster:</label>
+<input type="number" id="cluster" name="cluster" style="color:black; width: 100px;  border-radius: 4px;
+box-shadow: none;border-color:white;"><br><br>
+<h4>Choose analysis</h4>
+<select class="analysis_menu" name="comp_analysis" style=" background-color: #fff;
+  border: none;
+  color: Black;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16xpx;
+  cursor: pointer;
+  width: 18.3em;
+  height:35px;
+border-radius: 5px;" id="analysis">
+    <option value="none" style="color:black">Select one analysis</option>
+    <option value="histogram">Histogram</option>
+    <option value="Count_and_distribution">Count and distribution</option>
+    <option value="Pair_plots">Pair plots</option>
+    <option value="Box_plots">Box plots</option>
+    <option value="Violin_plots">Violin plots</option>
+    <option value="Joint_plots">Joint plots</option>
+    <option value="Scatter_plots">Scatter plots</option>
+    <option value="Correlation_plots">Correlation plots</option>
+     <option value="downsampled_dendogram_plots">Downsampled Dendogram plot</option>
+    <option value="downsampled_hierarchial_scatter_plots">Downsampled Hierarchial Scatterplot</option>
+     <option value="downsampled_hierarchial_plots">Downsampled Hierarchial Heatmap</option>
+    <option value="Codon_Heatmap_plots">Heatmap</option>
+    <option value="Codon_Gene_PCA_2D_samples_plots">PCA 2D variables cluster</option>
+    <option value="PCA_2D_label_plots">PCA 2D observation cluster</option>
+    <option value="PCA_2D_biplot_plots">PCA 2D biplot cluster</option>
+    <option value="Codon_Gene_PCA_3D_samples_plots">PCA 3D variables cluster</option>
+    <option value="PCA_3D_label_plots">PCA 3D observation cluster</option>
+
+</select>
+        </div>
+    <br>
+<br>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn2">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button5" onclick="submitForm('/structure_plot')"  id="bttn2">Submit for analysis</button>
+</div>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn3">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_structure_plot')"  id="bttn3">Downsampled analysis</button>
+</div>
+
+</form>
+                <ul class="list-unstyled CTAs">
+                    <li><a href="static/collection_zip/struc_dis_features.zip" class="download">Download source</a></li>
+                    <li><a href="static/collection_zip/All_data.zip" class="article">Download all</a></li>
+                </ul>
+            </nav>
+     <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="navbar-brand" href="/">Home</a></li>
+                                <li><a class="navbar-brand" href="/features">Features and Analysis</a></li>
+                                <!--<li><a class="navbar-brand" href="#">Models</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+               <p style="color:blue;font-size:20px;">Please go through the below explanation for details on table and plot
+                    interpretations</p>
+                <h3>Table column interpretation:</h3>
+                <br>
+                <h4>1. Gene length</h4>
+                <p>A gene's length—defined as the number of bases in the primary transcript prior to splicing.</p>
+                <h4>2. Exon number</h4>
+                <p> Exons are protein-coding sequences that code for specific proteins . Exon number here represents
+                the total number of exon within a gene. </p>
+                <h4>3.  3pUTR length ( three prime UTR length)  </h4>
+                <p>In molecular genetics, the three prime untranslated region (3′-UTR) is the section of messenger RNA
+                    (mRNA) that immediately follows the translation termination codon. The 3′-UTR often contains
+                    regulatory regions that post-transcriptionally influence gene expression. <br>
+                A 3pUTR length—defined as the number of bases in the the three prime untranslated region.</p>
+                <h4>4. 5pUTR length ( five prime UTR length) </h4>
+                <p>The 5′ untranslated region (also known as 5′ UTR, leader sequence, transcript leader, or leader RNA) is
+                    the region of a messenger RNA (mRNA) that is directly upstream from the initiation codon.
+                    A 5pUTR length—defined as the number of bases in the the five prime untranslated region.
+                </p>
+                <h4>5. CDS length </h4>
+                <p> A CoDing Sequence (CDS) is a region of DNA or RNA whose sequence determines the sequence of amino
+                    acids in a protein. A CDS length—defined as the number of bases in the the CoDing Sequence.
+                </p>
+                <h4>6. mRNA length </h4>
+                <p>In molecular biology, messenger ribonucleic acid (mRNA) is a single-stranded molecule of RNA that
+                    corresponds to the genetic sequence of a gene, and is read by a ribosome in the process of
+                    synthesizing a protein. A mRNA length—defined as the number of bases in the the mRNA Sequence. </p>
+                <h4>7. Chromosome </h4>
+                <p> Chromosome - A structure found inside the nucleus of a cell. A chromosome is made up of proteins and DNA
+                    organized into genes.
+                    <br>
+                     As a diploid Maize has 10 chromosomes (2n = 20).In the table we represent the chromosomes associated
+                    with each gene.
+                </p>
+                <h4>8. Isoform </h4>
+                <p> Isoform - any of several forms of the same protein, derived either from the same gene or from
+                    different genes, each of which is similar in function to the others.
+                    <br>
+                    In the table we represent the total number of Canonical isoforms  associated with each gene.
+                    Canonical isoforms have been defined as the most prevalent, most conserved,
+                    most expressed, longest, or the one with the clearest description of domains or post-translational
+                    modifications.
+                </p>
+
+
+                <br>
+                <h4>12. Labels </h4>
+                <p>The labels are the classes or the groups the genes are mapped into.The labels can act as both target variable or feature
+                as per the need of the user for solving their specific problem </p>
+                <h4>12.1 No Label</h4>
+                <p>This selection is provided to enable user to view the properties of all genes without labeling
+                    them into different gene categories or annotations. This is to let user examine the features of
+                    multiple genes and identify common patterns among them. As it involves the inspection of
+                all the genes therefore they work only for "Submit for analysis" button .</p>
+                <h4>12.2 Classical Genes</h4>
+                <p>Classical genes can be defined as most studied genes for visible mutant phenotype (for example: liguleless3). </p>
+                <h4>12.3 Pan-genome Genes </h4>
+                <p>A gene in a given taxonomic group is either present in every individual (core), or absent in at least a single
+                    individual (dispensable) and so on . </p>
+                <h4>12.4 Origin Genes </h4>
+                <p>Gene duplication is an important evolutionary mechanism allowing to provide new genetic material and thus
+                    opportunities to acquire new gene functions for an organism . There are different Origins of duplications
+                    such as WGD, Tandem and so on. </p>
+                <br>
+               <h3>Graph interpretations:</h3>
+
+                <p>To the top right corner of the plots/graphs, there are also options to download plot,
+                    zoom-out/zoom in, reset axes, autoscale, toggle spike lines, show closest data on hover, compare data on hover, box select,Pan
+                and lasso. Users can also select specific legends to view data only for the selected legends. Details on the interactive plot options are available here:
+                <br>
+                    <a href = https://plotly.com/chart-studio-help/getting-to-know-the-plotly-modebar/>Interactive graph features</a>
+                    </p>
+
+
+                <h4>1. Histogram</h4>
+                <p>The Histogram shows the frequency distribution of the selected Gene Structure such Gene length,
+                    Exon number ,3 prime UTR length .
+                The X-axis in the histogram represents the range of values present in the selected Gene Structure.
+                The Y-axis represents the frequency of values. In addition to the graph,to increase the interpretability of the data,
+                We have also included P-values,mean and standard deviations of the selected datasets. </p>
+
+                <h4>2. Count and distribution</h4>
+                <p>The Count and distribution plot is a smoothed, continuous version of a histogram estimated from
+                    the data. The most common form of estimation is known as kernel density estimation.The x-axis is
+                    the value of the selected Gene Structure just like in a histogram and the y-axis in a distribution plot
+                    is the probability density function and not a probability. The difference is the probability density
+                    is the probability per unit on the x-axis. In general the y-axis on the distribution plot is a value
+                    only for relative comparisons between different categories like classical and other genes.</p>
+                <h4>3. Pair plots</h4>
+                <p>The pairs plot builds on two basic figures, the distributions and the scatter plot. The distributions on the
+                    diagonal allows us to see the distribution of a single selected Gene Structure while the scatter plots
+                    on the upper and lower triangles show the relationship (or lack thereof) between two variables such as
+                    Gene length and Exon number. </p>
+                <h4>3. Box plots</h4>
+                <p>Boxplots are a measure of how well distributed the data in the selected Gene Structure's are. It divides the data set
+                    into three quartiles. This graph represents the minimum, maximum, median, first quartile and third quartile in the
+                    selected Gene Structure. It is also useful in comparing the distribution of data across data sets by drawing
+                    boxplots for each of them such as the core, non-core, dispensible and private genes. Boxplots can be used to:<br>
+                    <ul>
+                      <li>Identify outliers or anomalous data points</li>
+                      <li>To determine if our data is skewed</li>
+                      <li>To understand the spread/range of the data</li>
+                    </ul>
+                </p>
+                <h4>4. Violin plots</h4>
+                <p>Violin plots are similar to box plots, except that they also show the probability density of the selected Gene Structure
+                    at different values. These plots include a marker for the median of the data and a box indicating the
+                    interquartile range, as in the standard box plots. Overlaid on this box plot is a kernel density estimation.
+                    Like box plots, violin plots are used to represent comparison of a variable distribution such as Gene length,
+                    Exon number ,3 prime UTR length
+                    (or sample distribution)  across different "categories" (Classical/Other or Core/Non-core) .
+                    <br>A violin plot is more informative than a plain box plot. In fact while a box plot only shows summary statistics
+                    such as mean/median and interquartile ranges, the violin plot shows the full distribution of the selected
+                    Gene Structure.</p>
+                <h4>5. Joint plots</h4>
+                <p>
+                    A Jointplot comprises three plots. Out of the three, one plot displays a bivariate graph(scatter plot) which shows how the
+                    one variable( such as Gene length) varies with the another variable(such as Exon number). Another plot is
+                    placed horizontally at the top of the bivariate graph and it shows the distribution in the form of
+                    marks along an axis for each one of the selected Gene Structure's ( for example rug plot of Gene length and Exon number ).
+                    The third plot is placed  on the right margin of the bivariate graph with the orientation set to vertical and
+                    it shows the distribution of again the two selected Gene Structure's .
+                    <br>It is very helpful to have univariate and bivariate plots together in one figure.
+                    This is because the univariate analysis focuses on one variable, it describes, summarizes and shows any
+                    patterns in your data and the bivariate analysis explores the relationship between two variables and also
+                    describes the strength of their relationship.</p>
+                <h4>6. Scatter plots</h4>
+                <p>A Scatter plot is a great way of exploring relationships or patterns in data. But adding a regression line can
+                    make those patterns stand out . Therefore Scatter plot with simple linear regression for the selected Gene Structure's,
+                    explains the strength of the relationship between the two variables such as Gene length or Exon number in your scatter-plot using R2,
+                    the squared correlation coefficient.It is always between 0 and 1. Higher R2 indicates stronger relationship between
+                the selected Gene Structure's . </p>
+                <h4>7. Correlation plots</h4>
+                <p> Correlation heatmap is graphical representation of correlation matrix representing correlation between different
+                    selected Gene Structure's. Correlation ranges from -1 to +1. Values closer to zero means there is no linear
+                    trend between the two variables. The close to 1 the correlation is the more positively correlated they are;
+                    that is as one increases so does the other and the closer to 1 the stronger this relationship is. Correlation
+                plots also alerts us to potential multicollinearity problems.</p>
+                <h4>8. Downsampled Dendogram plots</h4>
+                <p>A dendrogram is a type of tree diagram showing hierarchical clustering — relationships between similar sets of
+                    genes based on the selected Gene Structure's. They are frequently used in biology to show clustering between genes
+                    or samples, but they can represent any type of grouped data.The dendogram is built on downsampled data to save
+                time and complexity. <br>
+                The branches in the dendogram are arranged according to how similar (or dissimilar) they are. branches that are
+                    close to the same height are similar to each other; branches with different heights are dissimilar —
+                    the greater the difference in height, the more dissimilarity. Also the different clusters fo genes based on the
+                    selected Gene Structure's are marked by different colors.</p>
+                <h4>9. Downsampled Hierarchial Scatterplot</h4>
+                <p>The Hierarchial Scatter plot is a type of pair plot that can be used to visualize the relationship of different
+                    pairs of Gene Structure's on the clusters of genes formed during dendogram. Therefore to create Hierarchial
+                    scatterplot we need to input the number of clusters in the choose cluster input box. For the Downsampled Hierarchical Scatter plot, we need to specify the number of clusters we
+                    want to view. Moreover, this number of clusters corresponds to the number of clusters
+                    formed in the Dendrogram plot, so we perform this analysis only after studying the
+                    Dendrogram plot. The Downsampled Hierarchical Scatter plot is dynamically sized for the
+                    number of clusters, so every user can analyze the dataset based on how many clusters
+                    they believe the selected data is forming .
+                </p>
+                <h4>10. Downsampled Hierarchial Heatmap</h4>
+                <p>Hierarchical clustering heatmap are an intuitive way to visualize information from complex data. It’s also called
+                    a false colored image, where data values are transformed to color scale. Heat maps allow us to simultaneously
+                    visualize clusters of samples(selected Gene Structure's) in the column and features (genes) in the rows. <br>First
+                    hierarchical clustering is done of both the rows and the columns of the data matrix. The columns/rows of the
+                    data matrix are re-ordered according to the hierarchical clustering result, putting similar observations close
+                    to each other. The blocks of ‘high’ and ‘low’ values are adjacent in the data matrix. Finally,
+                    a color scheme is applied for the visualization and the data matrix is displayed. Visualizing the data
+                    matrix in this way can help to find the variables(selected Gene Structure's) that appear to be characteristic
+                    for each sample cluster.</p>
+
+                <h4>10. Heatmap</h4>
+                <p>A heatmap is a plot of rectangular data as a color-encoded matrix.This is a great way to visualize data, because
+                    it can show the relation between variables (selected Gene Structure's) including genes. The heatmap here shows
+                the relation between the first 100 genes and the selected Gene Structure's values to reduce time and complexity .</p>
+                <h4>PCA</h4>
+                <P>PCA reduces the high-dimensional interrelated data to low-dimension by linearly transforming the old variable
+                    into a new set of uncorrelated variables called principal component (PC) while retaining the most possible
+                    variation. <br>
+                    The first component has the largest variance followed by the second component and so on.
+                    The first few components retain most of the variation, which is easy to visualize and summarise the feature
+                    of original high-dimensional datasets in low-dimensional space. PCA helps to assess which original samples are
+                    similar and different from each other. <br>
+                    In our case when the selected number of Gene Structure's are higher than 2 then, it is arduous to visualize them at
+                    the same time to interpret the genes.PCA transforms them into a new set of variables (PCs) with top PCs
+                    having the highest variation. PCs are ordered which means that the first few PCs (generally first 3 PCs but
+                    can be more) contribute most of the variance present in the the original high-dimensional dataset. These top
+                    first 2 or 3 PCs can be plotted easily and summarize the features of all original variables (selected Gene Structure's).
+</P>
+                <h4>11. PCA 2D variables cluster</h4>
+                   <p>
+                    A PCA 2D variables cluster  plot shows how strongly each characteristic or variables
+                    influences a principal component. In the plot we can see these vectors(variables)
+                    are pinned at the origin of PCs (PC1 = 0 and PC2 = 0). Their project values on each PC show
+                    how much weight they have on that PC.
+                </p>
+                <h4>12. PCA 2D observation cluster</h4>
+              <p>A PCA 2D observation cluster plot showing clusters of samples/observations based on their similarity.PCA does not discard
+                    any samples or observations. Instead, it reduces the overwhelming number of dimensions by
+                    constructing principal components (PCs). PCs describe variation and account for the varied influences
+                    of the original characteristics. Such influences, or loadings, can be traced back from the PCA plot
+                    to find out what produces the differences among clusters. <br>
+                    Observations further out are either outliers or naturally extreme observations. Plot observations are annotated with shapes
+                    and colors to highlight gene models and gene types for example (Classical/Others). In this way, we can easily hover
+                    over any data point, especially outliers, to find gene models with extreme observation values across various samples types.
+                    (selected Gene Structure's)
+
+                </p>
+                <h4>13. PCA 2D biplot cluster</h4>
+                <p> PCA biplot = PCA observations plot + variable plot. <br>
+                    we can probably notice that a PCA biplot simply merge an usual observations PCA plot with a plot of
+                    varaiables. The arrangement is like this: <br>
+
+                    <b>*</b>Bottom axis: PC1 score. <br>
+                    <b>*</b> Left axis: PC2 score. <br>
+                    In other words, the left and bottom axes are of the PCA observations plot — use them to read PCA scores of the
+                    observations (dots).
+                    </p>
+                <p>
+                    Another nice thing about these plots: the angles between the vectors/variables tell us how
+                    characteristics or variables correlate with one another. <br>
+                    <b>*</b> When two vectors are close, forming a small angle, the two variables they represent are positively
+                    correlated. <br>
+                    <b>*</b>If they meet each other at 90°, they are not likely to be correlated. <br>
+                    <b>*</b>When they diverge and form a large angle (close to 180°), they are negative correlated.
+                </p>
+                <h4>14. PCA 3D variables cluster</h4>
+                <p> This is similar to the PCA 2D variables cluster plot but now instead of two pricipal compotents, we can have three PC'S that contribute to
+                    most of the variance present in the the original high-dimensional dataset. These top
+                    3 PCs can be plotted easily in 3 dimensional space and summarize the features of all original variables
+                    (selected Gene Structure's) .</p>
+                <h4>15. PCA 3D observation cluster</h4>
+                <p> This is similar to the PCA 2D observation cluster but now instead of two pricipal compotents, we can have three PC'S that contribute to
+                    most of the variance present in the the original high-dimensional dataset. These top
+                    3 PCs can be plotted easily in 3 dimensional space and summarize the variance in the observations . <br>
+                 A PCA 3D observation cluster plot displays how much variation each principal component captures from
+                    the data. If the first three PCs are sufficient to describe the essence of the data.</p>
+                <b>For further details on these features please go through the below details :</b>
+                <p style="font-size: 13px" >All the features are generated using the customized python script:  The data used
+                    here are from gff files and other genomic files stored here:
+                    <a href="https://www.maizegdb.org/download">https://www.maizegdb.org/download</a>
+                     </p>
+
+            </div>
+    </div>
+
+<script>
+var dataSet = {{ select|safe }}
+
+var my_columns = [];
+
+$.each( dataSet[0], function( key, value ) {
+        var my_item = {};
+        my_item.data = key;
+        my_item.title = key;
+        my_columns.push(my_item);
+});
+
+$(document).ready(function() {
+  $('#example').DataTable({
+    "scrollX": true,
+    data: dataSet,
+    "columns": my_columns
+  });
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct').multiselect({
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct1').multiselect({
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct2').multiselect({
+multiple: false,
+maxHeight: 200,
+buttonWidth:'260px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script type="text/javascript">
+ $(document).ready(function () {
+     $('#sidebarCollapse').on('click', function () {
+         $('#sidebar').toggleClass('active');
+         $(this).toggleClass('active');
+     });
+ });
+</script>
+<script>
+ function submitForm(action) {
+    var form = document.getElementById('framework_form');
+    form.action = action;
+    form.submit();
+  }
+</script>
+</body>
+</html>

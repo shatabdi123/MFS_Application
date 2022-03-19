@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2 style=" text-align: center;">Tools Sources</h2>
+
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Feature</th>
+    <th>Feature Details</th>
+    <th>Count</th>
+    <th>Type</th>
+    <th>Tools</th>
+  </tr>
+  <tr>
+    <td>         </td>
+    <td>DNA Sequence</td>
+    <td>K-mers and autocorrelation features</td>
+    <td>259</td>
+    <td>Numerical</td>
+    <td><a href = "https://cran.r-project.org/web/packages/rDNAse/index.html" >rDNAse (R package)</a></td>
+  </tr>
+  <tr>
+    <td>         </td>
+    <td>Protein Sequence</td>
+    <td>K-mers and autocorrelation features</td>
+    <td>9858</td>
+    <td>Numerical</td>
+    <td><a href = "https://cran.r-project.org/web/packages/protr/vignettes/protr.html" >protr package (R package)</a></td>
+  </tr>
+  <tr>
+    <td>Sequence</td>
+    <td>Codon</td>
+    <td>Codon adaptation index (CAI) , Codon bias index (CBI) , Effective number of codons (Nc)  etc </td>
+    <td>14</td>
+    <td>Numerical</td>
+    <td><a href = "http://codonw.sourceforge.net/Indices.html" >CodonW</a></td>
+  </tr>
+    <tr>
+    <td>        </td>
+    <td>Protein Structure</td>
+    <td>Transmembrane domain, coils, loops etc</td>
+    <td>5</td>
+    <td>Numerical + Categorical</td>
+    <td><a href = "http://dis.embl.de/" >DisEMBL</a>,
+      <a href = "https://services.healthtech.dtu.dk/service.php?TMHMM-2.0" >TMHMM</a>, and
+      <a href = "https://services.healthtech.dtu.dk/service.php?SignalP-6.0" >SignalP</a></td>
+  </tr>
+  </tr>
+    <tr style="border-bottom: 3px solid black;">
+    <td>         </td>
+    <td>Protein Localization</td>
+    <td>Subcellular localizations</td>
+    <td>17</td>
+    <td>Categorical</td>
+    <td><a href = "https://wolfpsort.hgc.jp/" >WolfPsort</a>
+       and <a href = "https://services.healthtech.dtu.dk/service.php?DeepLoc-1.0" >Deeploc</a></td>
+  </tr>
+  <tr>
+    <td>Genomic Structure</td>
+    <td>Gene Structure</td>
+    <td>Exon number, gene length etc</td>
+    <td>10</td>
+    <td>Numerical + Categorical</td>
+    <td>Customized Python Script</td>
+  </tr>
+  <tr style="border-bottom: 3px solid black;">
+    <td>   </td>
+    <td>Distance</td>
+    <td>Chromosomal distance, distance to nearest telomere etc</td>
+    <td>4</td>
+    <td>Numerical</td>
+    <td>Customized Python Script</td>
+  </tr>
+  <tr>
+    <td>Expression</td>
+    <td>Gene Expression</td>
+    <td>Tissue expression, Tissue breadth,
+        Maximum expression etc</td>
+    <td>175</td>
+    <td>Numerical</td>
+    <td><a href = "https://qteller.maizegdb.org/" >qTeller</a></td>
+  </tr>
+  <tr style="border-bottom: 3px solid black;">
+    <td>   </td>
+    <td>Protein Expression</td>
+    <td> </td>
+    <td>26</td>
+    <td>Numerical</td>
+    <td><a href = "https://qteller.maizegdb.org/" >qTeller</a></td>
+  </tr>
+  <tr>
+    <td>  </td>
+    <td>Chromatin States</td>
+    <td>Combination of histone modifications</td>
+    <td>13</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>ATAC-Seq</td>
+    <td>Open chromatin peak</td>
+    <td>6</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>Chromatin Interactions</td>
+    <td>Histone Modifications</td>
+    <td>ChIP-Seq peaks</td>
+    <td>8</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+  <tr style="border-bottom: 3px solid black;">
+    <td> </td>
+    <td>DNA Methylation</td>
+    <td>CG, CHG, and CHH</td>
+    <td>9</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>miRNA</td>
+    <td> </td>
+    <td>3</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>Insertions</td>
+    <td> </td>
+    <td>6</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>TF Binding Sites</td>
+    <td> </td>
+    <td>99</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>Count</td>
+    <td>Transcription Start Site</td>
+    <td>Counts of each
+Each category type cross three regions of the genome: within gene body, 1KB region directly upstream and downstream of the gene start site and 5KB region directly upstream and downstream of the gene start site.</td>
+    <td>6</td>
+    <td>Numerical</td>
+    <td><a href = "https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html" >Bedtools</a> and Customized Python Scripts</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>Enhancers</td>
+    <td> </td>
+    <td>6</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>Transposable Elements</td>
+    <td> </td>
+    <td>3</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+   <tr style="border-bottom: 3px solid black;">
+    <td> </td>
+    <td>G-Quadruplex</td>
+    <td> </td>
+    <td>5</td>
+    <td>Numerical</td>
+    <td> </td>
+  </tr>
+     <tr style="border-bottom: 3px solid black;">
+    <td>Gene interactions</td>
+    <td>Correlation</td>
+    <td>WGCNA modules</td>
+    <td>12</td>
+    <td>Categorical</td>
+    <td> </td>
+  </tr>
+    <tr>
+    <td>Variomic</td>
+    <td>SNP</td>
+    <td>WGCNA modules</td>
+    <td>1</td>
+    <td>Numerical</td>
+    <td><a href = "https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html" >Bedtools</a></td>
+  </tr>
+   <tr style="border-bottom: 3px solid black;">
+    <td></td>
+    <td>SNP Effect</td>
+    <td>WGCNA modules</td>
+    <td>27</td>
+    <td>Numerical</td>
+    <td><a href = "http://pcingola.github.io/SnpEff/" >SnpEff</a></td>
+  </tr>
+      <tr>
+    <td>Other</td>
+    <td>Evolutionary</td>
+    <td>Kn vs Ks, Gene Age</td>
+    <td>9</td>
+    <td>Numerical</td>
+    <td><a href = "https://github.com/arendsee/phylostratr" >phylostratr</a></td>
+  </tr>
+   <tr style="border-bottom: 3px solid black;">
+    <td></td>
+    <td>Protein domains</td>
+    <td>Total PFAM per gene model /td>
+    <td>1</td>
+    <td>Numerical</td>
+    <td>Customized Python Script</td>
+  </tr>
+</table>
+ <p style=" text-align: center;"> <a href="/">Go Back</a> </p>
+
+</body>
+</html>
+

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+ <style>
+      .multiselect-container {
+        width: 100% !important;
+    }
+        div.dataTables_wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+   .analysis_menu{
+  min-width: 380px;
+  min-height: 30px;
+}
+
+#sidebar {
+    min-width: 410px;
+    max-width: 410px;
+}
+
+p {
+text-align: justify;
+text-justify: inter-word;
+}
+
+ </style>
+</head>
+<body>
+<div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Varionomic Features</h3>
+                </div>
+
+<form method="post" id="framework_form">
+<!--<form method="post" id="framework_form" action="/featuresBoot">-->
+<div class="container">
+<h4>Varionomic Count</h4>
+<div class="bs-multiselect">
+<select id = "mltislct" name="comp_select" multiple = "multiple">
+<!--<option value="ID" name="ID">Gene ID</option>-->
+    <option value="SNPS">SNPS</option>
+<option value="variants_impact_HIGH" name="variants_impact_HIGH">variants impact HIGH</option>
+<option value="variants_impact_LOW" name="variants_impact_LOW">variants impact LOW</option>
+<option value="variants_impact_MODERATE" name="variants_impact_MODERATE">variants impact MODERATE</option>
+<option value="variants_impact_MODIFIER" name="variants_impact_MODIFIER">variants impact MODIFIER</option>
+<option value="variants_effect_3_prime_UTR_variant" name="variants_effect_3_prime_UTR_variant">variants effect 3_prime_UTR</option>
+<option value="variants_effect_5_prime_UTR_premature_start_codon_gain_variant" name="variants_effect_5_prime_UTR_premature_start_codon_gain_variant">variants 5UTR_premature_start_codon_gain</option>
+<option value="variants_effect_5_prime_UTR_variant" name="variants_effect_5_prime_UTR_variant">variants effect 5_prime_UTR</option>
+<option value="variants_effect_downstream_gene_variant" name="variants_effect_downstream_gene_variant">variants effect downstream_gene</option>
+<option value="variants_effect_initiator_codon_variant" name="variants_effect_initiator_codon_variant">variants effect initiator_codon</option>
+<option value="variants_effect_intron_variant" name="variants_effect_intron_variant">variants effect intron</option>
+<option value="variants_effect_missense_variant" name="variants_effect_missense_variant">variants effect missense</option>
+<option value="variants_effect_splice_acceptor_variant" name="variants_effect_splice_acceptor_variant">variants effect splice_acceptor</option>
+<option value="variants_effect_splice_donor_variant" name="variants_effect_splice_donor_variant">variants effect splice_donor</option>
+<option value="variants_effect_splice_region_variant" name="variants_effect_splice_region_variant">variants effect splice_region</option>
+<option value="variants_effect_start_lost" name="variants_effect_start_lost">variants effect start_lost</option>
+<option value="variants_effect_start_retained_variant" name="variants_effect_start_retained_variant">variants effect start_retained</option>
+<option value="variants_effect_stop_gained" name="variants_effect_stop_gained">variants effect stop_gained</option>
+<option value="variants_effect_stop_lost" name="variants_effect_stop_lost">variants effect stop_lost</option>
+<option value="variants_effect_stop_retained_variant" name="variants_effect_stop_retained_variant">variants effect stop_retained</option>
+<option value="variants_effect_synonymous_variant" name="variants_effect_synonymous_variant">variants effect_synonymous</option>
+<option value="variants_effect_upstream_gene_variant" name="variants_effect_upstream_gene_variant">variants effect upstream_gene</option>
+
+</select>
+</div>
+    <h4>Labels</h4>
+    <div class="bs-multiselect">
+<select id = "mltislct2" name="comp_select" multiple = "multiple">
+    <option value="no_label" name="no_label">No Label</option>
+<option value="classical_label" name="classical">Classical</option>
+<option value="core_label" name="core">Pan-genome</option>
+<option value="Origin" name="Origin">Gene Origin</option>
+</select>
+</div>
+    </div>
+<br>
+<br>
+<div style="width:200px;height:85px;margin-left:22px" class="btn1">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button4" onclick="submitForm('/Varionomic)" id="bttn1">Submit for table</button>
+</div>
+    <div class="container">
+        <label for="cluster" style="font-size: 18px;font-family: inherit;font-weight: 500;
+    line-height: 1.1;
+    color: inherit;">Choose cluster:</label>
+<input type="number" id="cluster" name="cluster" style="color:black; width: 100px;  border-radius: 4px;
+box-shadow: none;border-color:white;"><br><br>
+<h4>Choose analysis</h4>
+<select class="analysis_menu" name="comp_analysis" style=" background-color: #fff;
+  border: none;
+  color: Black;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16xpx;
+  cursor: pointer;
+  width: 18.3em;
+  height:35px;
+border-radius: 5px;" id="analysis">
+    <option value="none" style="color:black">Select one analysis</option>
+    <option value="histogram">Histogram</option>
+    <option value="Count_and_distribution">Count and distribution</option>
+    <option value="Pair_plots">Pair plots</option>
+    <option value="Box_plots">Box plots</option>
+    <option value="Violin_plots">Violin plots</option>
+    <option value="Joint_plots">Joint plots</option>
+    <option value="Scatter_plots">Scatter plots</option>
+    <option value="Correlation_plots">Correlation plots</option>
+    <option value="downsampled_dendogram_plots">Downsampled Dendogram plot</option>
+    <option value="downsampled_hierarchial_scatter_plots">Downsampled Hierarchial Scatterplot</option>
+    <option value="downsampled_hierarchial_plots">Downsampled Hierarchial Heatmap</option>
+    <option value="Codon_Heatmap_plots">Heatmap</option>
+    <option value="Codon_Gene_PCA_2D_samples_plots">PCA 2D variables cluster</option>
+    <option value="PCA_2D_label_plots">PCA 2D observation cluster</option>
+    <option value="PCA_2D_biplot_plots">PCA 2D biplot cluster</option>
+     <option value="Codon_Gene_PCA_3D_samples_plots">PCA 3D variables cluster</option>
+    <option value="PCA_3D_label_plots">PCA 3D observation cluster</option>
+</select>
+        </div>
+    <br>
+<br>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn2">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button5" onclick="submitForm('/Varionomic_plot')"  id="bttn2">Submit for analysis</button>
+</div>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn3">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 12em;
+border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_Varionomic_plot')"  id="bttn3">Downsampled analysis</button>
+</div>
+
+</form>
+                <ul class="list-unstyled CTAs">
+                    <li><a href="static/collection_zip/vario_features.zip" class="download">Download source</a></li>
+                    <li><a href="static/collection_zip/All_data.zip" class="article">Download all</a></li>
+                </ul>
+            </nav>
+     <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                 <li><a class="navbar-brand" href="/">Home</a></li>
+                                <li><a class="navbar-brand" href="/features">Features and Analysis</a></li>
+                                <!--<li><a class="navbar-brand" href="#">Models</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                   <p style="color:blue;font-size:20px;">Please go through the below explanation for details on table and plot
+                    interpretations</p>
+                <h3>Table column interpretation:</h3>
+
+               <p> SnpEff is an open source tool that annotates variants and predicts their effects on genes by using an
+                   interval forest approach. This program takes pre-determined variants listed in a data file that contains
+                   the nucleotide change and its position and predicts if the variants are deleterious.The
+                   output from the SnpEff tool is display are displayed in the table as:
+               </p>
+                <br>
+                <h4>1. SNPS </h4>
+                <h4>2. variants impact HIGH</h4>
+                <h4>3. variants impact LOW </h4>
+                <h4>4. variants impact MODERATE </h4>
+                <h4>5. variants impact MODIFIER </h4>
+                <h4>6. variants effect 3_prime_UTR </h4>
+                <h4>7. variants 5UTR_premature_start_codon_gain</h4>
+                <h4>8. variants effect 5_prime_UTR </h4>
+                <h4>9. variants effect downstream_gene </h4>
+                <h4>10. variants effect initiator_codon</h4>
+                <h4>11. variants effect intron</h4>
+                <h4>12. variants effect missense</h4>
+                <h4>13. variants effect splice_acceptor </h4>
+                <h4>14. variants effect splice_donor </h4>
+                <h4>15. variants effect splice_region </h4>
+                <h4>16. variants effect start_lost </h4>
+                <h4>17. variants effect start_retained </h4>
+                <h4>18. variants effect stop_gained </h4>
+                <h4>19. variants effect stop_lost </h4>
+                <h4>20. variants effect stop_retained </h4>
+                <h4>21. variants effect_synonymous </h4>
+                <h4>22. variants effect upstream_gene </h4>
+
+                <br>
+                <h4>23. Labels </h4>
+                <p>The labels are the classes or the groups the genes are mapped into.The labels can act as both target variable or feature
+                as per the need of the user for solving their specific problem </p>
+                <h4>23.1 No Label</h4>
+                <p>This selection is provided to enable user to view the properties of all genes without labeling
+                    them into different gene categories or annotations. This is to let user examine the features of
+                    multiple genes and identify common patterns among them. As it involves the inspection of
+                all the genes therefore they work only for "Submit for analysis" button .</p>
+                <h4>23.2 Classical Genes</h4>
+                <p>Classical genes can be defined as most studied genes for visible mutant phenotype (for example: liguleless3). </p>
+                <h4>23.3 Pan-genome Genes </h4>
+                <p>A gene in a given taxonomic group is either present in every individual (core), or absent in at least a single
+                    individual (dispensable) and so on . </p>
+                <h4>23.4 Origin Genes </h4>
+                <p>Gene duplication is an important evolutionary mechanism allowing to provide new genetic material and thus
+                    opportunities to acquire new gene functions for an organism . There are different Origins of duplications
+                    such as WGD, Tandem and so on. </p>
+                <br>
+               <h3>Graph interpretations:</h3>
+
+                <p>To the top right corner of the plots/graphs, there are also options to download plot,
+                    zoom-out/zoom in, reset axes, autoscale, toggle spike lines, show closest data on hover, compare data on hover, box select,Pan
+                and lasso. Users can also select specific legends to view data only for the selected legends. Details on the interactive plot options are available here:
+                <br>
+                    <a href = https://plotly.com/chart-studio-help/getting-to-know-the-plotly-modebar/>Interactive graph features</a>
+
+                </p>
+
+
+                <h4>1. Histogram</h4>
+                <p>The Histogram shows the frequency distribution of the selected Variant annotation feature such as
+                    SNPS, variants impact HIGH, variants impact LOW etc.
+                The X-axis in the histogram represents the range of values present in the selected Variant annotation.
+                The Y-axis represents the frequency of values. In addition to the graph,to increase the interpretability of the data,
+                We have also included P-values,mean and standard deviations of the selected datasets. </p>
+
+                <h4>2. Count and distribution</h4>
+                <p>The Count and distribution plot is a smoothed, continuous version of a histogram estimated from
+                    the data. The most common form of estimation is known as kernel density estimation.The x-axis is
+                    the value of the selected Variant annotation just like in a histogram and the y-axis in a distribution plot
+                    is the probability density function and not a probability. The difference is the probability density
+                    is the probability per unit on the x-axis. In general the y-axis on the distribution plot is a value
+                    only for relative comparisons between different categories like classical and other genes.</p>
+                <h4>3. Pair plots</h4>
+                <p>The pairs plot builds on two basic figures, the distributions and the scatter plot. The distributions on the
+                    diagonal allows us to see the distribution of a single selected Variant annotation  while the scatter plots
+                    on the upper and lower triangles show the relationship (or lack thereof) between two variables such as
+                    SNPS and variants impact HIGH. </p>
+                <h4>3. Box plots</h4>
+                <p>Boxplots are a measure of how well distributed the data in the selected Variant annotation's are. It divides the data set
+                    into three quartiles. This graph represents the minimum, maximum, median, first quartile and third quartile in the
+                    selected Variant annotation . It is also useful in comparing the distribution of data across data sets by drawing
+                    boxplots for each of them such as the core, non-core, dispensible and private genes. Boxplots can be used to:<br>
+                    <ul>
+                      <li>Identify outliers or anomalous data points</li>
+                      <li>To determine if our data is skewed</li>
+                      <li>To understand the spread/range of the data</li>
+                    </ul>
+                </p>
+                <h4>4. Violin plots</h4>
+                <p>Violin plots are similar to box plots, except that they also show the probability density of the selected Variant annotation
+                    at different values. These plots include a marker for the median of the data and a box indicating the
+                    interquartile range, as in the standard box plots. Overlaid on this box plot is a kernel density estimation.
+                    Like box plots, violin plots are used to represent comparison of a variable distribution such as
+                  SNPS, variants impact HIGH
+                    (or sample distribution)  across different "categories" (Classical/Other or Core/Non-core) .
+                    <br>A violin plot is more informative than a plain box plot. In fact while a box plot only shows summary statistics
+                    such as mean/median and interquartile ranges, the violin plot shows the full distribution of the selected
+                     Variant annotation .</p>
+                <h4>5. Joint plots</h4>
+                <p>
+                    A Joint plot comprises three plots. Out of the three, one plot displays a bivariate graph(scatter plot) which shows how the
+                    one variable( such as  SNPS) varies with the another variable(such as variants impact HIGH). Another plot is
+                    placed horizontally at the top of the bivariate graph and it shows the distribution in the form of
+                    marks along an axis for each one of the selected Variant annotation's ( for example rug plot of  SNPS and variants impact HIGH).
+                    The third plot is placed  on the right margin of the bivariate graph with the orientation set to vertical and
+                    it shows the distribution of again the two selected Variant annotation's .
+                    <br>It is very helpful to have univariate and bivariate plots together in one figure.
+                    This is because the univariate analysis focuses on one variable, it describes, summarizes and shows any
+                    patterns in your data and the bivariate analysis explores the relationship between two variables and also
+                    describes the strength of their relationship.</p>
+                <h4>6. Scatter plots</h4>
+                <p>A Scatter plot is a great way of exploring relationships or patterns in data. But adding a regression line can
+                    make those patterns stand out . Therefore Scatter plot with simple linear regression for the selected  Variant annotation's,
+                    explains the strength of the relationship between the two variables such as  SNPS, variants impact HIGH in your scatter-plot using R2,
+                    the squared correlation coefficient.It is always between 0 and 1. Higher R2 indicates stronger relationship between
+                the selected Variant annotation's . </p>
+                <h4>7. Correlation plots</h4>
+                <p> Correlation heatmap is graphical representation of correlation matrix representing correlation between different
+                    selected  Variant annotation's. Correlation ranges from -1 to +1. Values closer to zero means there is no linear
+                    trend between the two variables. The close to 1 the correlation is the more positively correlated they are;
+                    that is as one increases so does the other and the closer to 1 the stronger this relationship is. Correlation
+                plots also alerts us to potential multicollinearity problems.</p>
+                <h4>8. Downsampled Dendogram plots</h4>
+                <p>A dendrogram is a type of tree diagram showing hierarchical clustering — relationships between similar sets of
+                    genes based on the selected  Variant annotation's. They are frequently used in biology to show clustering between genes
+                    or samples, but they can represent any type of grouped data.The dendogram is built on downsampled data to save
+                time and complexity. <br>
+                The branches in the dendogram are arranged according to how similar (or dissimilar) they are. branches that are
+                    close to the same height are similar to each other; branches with different heights are dissimilar —
+                    the greater the difference in height, the more dissimilarity. Also the different clusters fo genes based on the
+                    selected  Variant annotation's are marked by different colors.</p>
+                <h4>9. Downsampled Hierarchial Scatterplot</h4>
+                <p>The Hierarchial scatter plot is a type of pair plot that can be used to visualize the relationship of different
+                    pairs of  Variant annotation's on the clusters of genes formed during dendogram. Therefore to create Hierarchial
+                    scatterplot we need to input the number of clusters in the choose cluster input box. For the Downsampled Hierarchical Scatter plot, we need to specify the number of clusters we
+                    want to view. Moreover, this number of clusters corresponds to the number of clusters
+                    formed in the Dendrogram plot, so we perform this analysis only after studying the
+                    Dendrogram plot. The Downsampled Hierarchical Scatter plot is dynamically sized for the
+                    number of clusters, so every user can analyze the dataset based on how many clusters
+                    they believe the selected data is forming .
+                </p>
+                <h4>10. Downsampled Hierarchial Heatmap</h4>
+                <p>Hierarchical clustering heatmap are an intuitive way to visualize information from complex data. It’s also called
+                    a false colored image, where data values are transformed to color scale. Heat maps allow us to simultaneously
+                    visualize clusters of samples(selected Variant annotation's) in the column and features (genes) in the rows. <br>First
+                    hierarchical clustering is done of both the rows and the columns of the data matrix. The columns/rows of the
+                    data matrix are re-ordered according to the hierarchical clustering result, putting similar observations close
+                    to each other. The blocks of ‘high’ and ‘low’ values are adjacent in the data matrix. Finally,
+                    a color scheme is applied for the visualization and the data matrix is displayed. Visualizing the data
+                    matrix in this way can help to find the variables(selected  Variant annotation's) that appear to be characteristic
+                    for each sample cluster.</p>
+
+                <h4>10. Heatmap</h4>
+                <p>A heatmap is a plot of rectangular data as a color-encoded matrix.This is a great way to visualize data, because
+                    it can show the relation between variables (selected  Variant annotation's) including genes. The heatmap here shows
+                the relation between the first 100 genes and the selected  Variant annotation's values to reduce time and complexity .</p>
+                <h4>PCA</h4>
+                <P>PCA reduces the high-dimensional interrelated data to low-dimension by linearly transforming the old variable
+                    into a new set of uncorrelated variables called principal component (PC) while retaining the most possible
+                    variation. <br>
+                    The first component has the largest variance followed by the second component and so on.
+                    The first few components retain most of the variation, which is easy to visualize and summarise the feature
+                    of original high-dimensional datasets in low-dimensional space. PCA helps to assess which original samples are
+                    similar and different from each other. <br>
+                    In our case when the selected number of  Variant annotation's are higher than 2 then, it is arduous to visualize them at
+                    the same time to interpret the genes.PCA transforms them into a new set of variables (PCs) with top PCs
+                    having the highest variation. PCs are ordered which means that the first few PCs (generally first 3 PCs but
+                    can be more) contribute most of the variance present in the the original high-dimensional dataset. These top
+                    first 2 or 3 PCs can be plotted easily and summarize the features of all original variables (selected  Variant annotation's).
+</P>
+                <h4>11. PCA 2D variables cluster</h4>
+                <p>
+                    A PCA 2D variables cluster  plot shows how strongly each characteristic or variables
+                    influences a principal component. In the plot we can see these vectors(variables)
+                    are pinned at the origin of PCs (PC1 = 0 and PC2 = 0). Their project values on each PC show
+                    how much weight they have on that PC.
+
+                </p>
+                <h4>12. PCA 2D observation cluster</h4>
+                <p>A PCA 2D observation cluster plot showing clusters of samples/observations based on their similarity.PCA does not discard
+                    any samples or observations. Instead, it reduces the overwhelming number of dimensions by
+                    constructing principal components (PCs). PCs describe variation and account for the varied influences
+                    of the original characteristics. Such influences, or loadings, can be traced back from the PCA plot
+                    to find out what produces the differences among clusters. <br>
+                    Observations further out are either outliers or naturally extreme observations. Plot observations are annotated with shapes
+                    and colors to highlight gene models and gene types for example (Classical/Others). In this way, we can easily hover
+                    over any data point, especially outliers, to find gene models with extreme observation values across various samples types.
+                    (selected  Variant annotation's)
+
+                </p>
+                <h4>13. PCA 2D biplot cluster</h4>
+                <p> PCA biplot = PCA observations plot + variable plot. <br>
+                    we can probably notice that a PCA biplot simply merge an usual observations PCA plot with a plot of
+                    varaiables. The arrangement is like this: <br>
+
+                    <b>*</b>Bottom axis: PC1 score. <br>
+                    <b>*</b> Left axis: PC2 score. <br>
+                    In other words, the left and bottom axes are of the PCA observations plot — use them to read PCA scores of the
+                    observations (dots).
+                    </p>
+                <p>
+                    Another nice thing about these plots: the angles between the vectors/variables tell us how
+                    characteristics or variables correlate with one another. <br>
+                    <b>*</b> When two vectors are close, forming a small angle, the two variables they represent are positively
+                    correlated. <br>
+                    <b>*</b>If they meet each other at 90°, they are not likely to be correlated. <br>
+                    <b>*</b>When they diverge and form a large angle (close to 180°), they are negative correlated.
+                </p>
+                <h4>14. PCA 3D variables cluster</h4>
+                <p> This is similar to the PCA 2D variables cluster plot but now instead of two pricipal compotents, we can have three PC'S that contribute to
+                    most of the variance present in the the original high-dimensional dataset. These top
+                    3 PCs can be plotted easily in 3 dimensional space and summarize the features of all original variables
+                    (selected  Variant annotation's) .</p>
+                <h4>15. PCA 3D observation cluster</h4>
+                <p> This is similar to the PCA 2D observation cluster but now instead of two pricipal compotents, we can have three PC'S that contribute to
+                    most of the variance present in the the original high-dimensional dataset. These top
+                    3 PCs can be plotted easily in 3 dimensional space and summarize the variance in the observations . <br>
+                 A PCA 3D observation cluster plot displays how much variation each principal component captures from
+                    the data. If the first three PCs are sufficient to describe the essence of the data.</p>
+                <b>For further details on these features please go through the below tool :</b>
+                <br>
+
+                <a href= "https://pcingola.github.io/SnpEff/">https://pcingola.github.io/SnpEff/</a>
+
+            </div>
+    </div>
+
+<script>
+var dataSet = {{ select|safe }}
+
+var my_columns = [];
+
+$.each( dataSet[0], function( key, value ) {
+        var my_item = {};
+        my_item.data = key;
+        my_item.title = key;
+        my_columns.push(my_item);
+});
+
+$(document).ready(function() {
+  $('#example').DataTable({
+    "scrollX": true,
+    data: dataSet,
+    "columns": my_columns
+  });
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct').multiselect({
+maxHeight: 200,
+buttonWidth:'380px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct1').multiselect({
+maxHeight: 200,
+buttonWidth:'380px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('#mltislct2').multiselect({
+multiple: false,
+maxHeight: 200,
+buttonWidth:'380px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script type="text/javascript">
+ $(document).ready(function () {
+     $('#sidebarCollapse').on('click', function () {
+         $('#sidebar').toggleClass('active');
+         $(this).toggleClass('active');
+     });
+ });
+</script>
+<script>
+ function submitForm(action) {
+    var form = document.getElementById('framework_form');
+    form.action = action;
+    form.submit();
+  }
+</script>
+</body>
+</html>

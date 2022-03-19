@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Feature Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
+    .mySlides {display:none}
+    .w3-tag, .fa {cursor:pointer}
+    .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+
+    </style>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd; height: 90px">
+        <!-- Image and text -->
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sequence Features
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/DNAseq">DNA Sequence</a>
+          <a class="dropdown-item" href="/Proteinseq">Protein Sequence</a>
+          <a class="dropdown-item" href="/Codon">Codon</a>
+          <a class="dropdown-item" href="/ProteinStructure">Protein Structure</a>
+          <a class="dropdown-item" href="/ProteinLocalization">Protein Localization</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Gene Structure
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/Structure">Structure</a>
+          <a class="dropdown-item" href="/distance">Distance</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Expression
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/GeneExp">Gene expression</a>
+          <a class="dropdown-item" href="/ProteinExp">Protein Expression</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Chromatin Features
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/ChromStates">Chromatin states</a>
+          <a class="dropdown-item" href="/ATACseq">ATAC-seq</a>
+          <a class="dropdown-item" href="/HistoneModifications">Histone modification</a>
+          <a class="dropdown-item" href="/DNAmethylation">DNA methylation</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Count
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/miRNA">miRNA</a>
+          <!--<a class="dropdown-item" href="/PFAM">PFAM domains</a>-->
+          <a class="dropdown-item" href="/Insertions">Insertions</a>
+          <a class="dropdown-item" href="/TFbindingSite">TF binding site</a>
+          <!--<a class="dropdown-item" href="/chromatinAssescibility">chromatin assescibility</a>-->
+          <a class="dropdown-item" href="/TSS">Transcription start site</a>
+          <a class="dropdown-item" href="/Enhancers">Enhancers</a>
+          <a class="dropdown-item" href="/TE">Transposable element</a>
+          <a class="dropdown-item" href="/Quadruplex">G-Quadruplex</a>
+        </div>
+      </li>
+       <a class="navbar-brand" href="/Correlation">Correlation</a>
+       <a class="navbar-brand" href="/Varionomic">Varionomic</a>
+       <a class="navbar-brand" href="/Other">Other Features</a>
+       <a class="navbar-brand" href="/">Home</a>
+    </ul>
+
+  </div>
+</nav>
+
+<!--<div id="content">-->
+
+<div class="w3-content" style="max-width:1100px;margin-bottom:80px">
+
+  <div class="w3-panel">
+         <img src="static/Graph.PNG" style="width:100%">
+  </div>
+
+  <!-- Slideshow -->
+  <div class="w3-container">
+    <div class="w3-display-container mySlides">
+      <img src="/w3images/coffee.jpg" style="width:100%">
+      <div class="w3-display-topleft w3-container w3-padding-32">
+        <span class="w3-white w3-padding-large w3-animate-bottom">Lorem ipsum</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16"><b>Data Standardization</b></span>
+    </div>
+    <div class="w3 l3 m6 w3-light-grey w3-container w3-padding-16">
+      <h5 style="text-align:justify;font-family:sans-serif;">Omics datasets come in a diverse range,
+        scale, and follow their own statistical distributions as they are collected from disparate sources,
+        therefore data standardization becomes crucial for omics datasets. Outputs generated from non-standardized
+        features are often skewed, deviated, and filled with outliers and anomalies. Therefore,the advanced
+        exploratory analysis such as <b>Dendograms, Hierarchial Heatmaps, Hierarchial Scatter plots,
+          Heatmaps and PCA analysis </b> demands high-level data preprocessing and normalization to balance out
+        disproportionate weights across multiple variables. Data normalization transforms the multiscaled data all
+        to the same scale, thereby improving the stability and performance of the learning algorithm. The Maize Feature
+        Store application allows for the normalization of omics numerical features by centering the features with their
+        mean and the standard deviation between 0 and 1 using the most common normalization
+        method called <b>Z-score normalization</b>. In standardized z-score normalization, each feature is
+        normalized as <b>Z = ( X - X' ) / S</b>, where <b>X, X' and S</b> are the feature, the mean and the standard deviation respectively.</h5>
+    </div>
+
+  </div>
+
+    <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16"><b>Data Imbalance</b></span>
+    </div>
+    <div class="w3 l3 m6 w3-light-grey w3-container w3-padding-16">
+      <h5 style="text-align:justify;font-family:sans-serif;">The ratio of label categories such as
+        <b>core to non-core genes or classical to other genes</b> in each reference genome is frequently uneven,
+        resulting in a bias favoring majority samples. For example Seventy-two percent of our
+        genes are marked as core in the maize reference genome version AGPv5, and twenty-eight percent are
+        annotated as non-core ( near-core, dispensible and private genes ). Therefore We used the <b>random downsampling</b>
+        method to address the issue of unbalanced data and provided users with the option of “Downsampled analysis” . Random Undersampling is a technique in which random samples
+        are deleted from the majority class. This process can be repeated until the desired class distribution is
+        achieved, such as in our case equal number of each catgories in each labels.</h5>
+    </div>
+    </div>
+
+  <!-- Grid -->
+  <div class="w3-row-padding" id="plans">
+     <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16"><b>Maize Feature Store has three tools</b></span>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+      <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+        <li class="w3-black w3-xlarge w3-padding-32">Data Tables</li>
+         <a href="{{url_for('static', filename='Table_img.png')}}"><img src="{{url_for('static', filename='Table_img.png')}}" width="300" height="332" class="d-inline-block align-top" alt=""></a>
+      </ul>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+      <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+        <li class="w3-dark-grey w3-xlarge w3-padding-32">Data Visualization</li>
+       <a href="{{url_for('static', filename='multi_var.png')}}"><img src="{{url_for('static', filename='multi_var.png')}}" width="300" height="332" class="d-inline-block align-top" alt=""></a>
+      </ul>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+      <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+        <li class="w3-black w3-xlarge w3-padding-32">Data Modeling</li>
+        <a href="{{url_for('static', filename='model_img.png')}}"><img src="{{url_for('static', filename='model_img.png')}}" width="300" height="332" class="d-inline-block align-top" alt=""></a>
+      </ul>
+    </div>
+  </div>
+
+   <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Questions we are trying to answer</span>
+    </div>
+    <div class="w3-left l3 m6 w3-light-grey w3-container w3-padding-16">
+      <!--<h3>Design</h3>-->
+       <ol>
+         <h5 style="text-align:justify;font-family:sans-serif;"><li>What is common among these genes?
+
+         </li>
+           <br>
+            <li>What are the relationships between:
+              gene phenotype and gene length, copy number, expression levels and patterns, epigenetic markers,
+              cross-species conservation, and SNP densities ?
+             </li>
+           <br>
+            <li>Apply machine learning methods to predict known core genes and non-core genes as well as an additional likely
+              core or non-core genes without documented pan-genome annotations.
+           </li>
+           <br>
+            <li>Therefore, we are trying to discover if core genes in Zea Mays have distinct features
+              and utilize it for constructing within- and cross-species prediction models.
+            </li></h5>
+
+
+          </ol>
+    </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+
+<footer class="w3-container w3-padding-32 w3-light-grey w3-center">
+  <h3><b>Footer</b></h3>
+  <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+</footer>
+
+<!--</div>-->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

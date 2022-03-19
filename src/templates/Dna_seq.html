@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+    <!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+     <style>
+      .multiselect-container {
+        width: 100% !important;
+    }
+     .select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
+        div.dataTables_wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+
+#sidebar {
+    min-width: 380px;
+    max-width: 380px;
+}
+
+p {
+text-align: justify;
+text-justify: inter-word;
+}
+
+     </style>
+</head>
+<body>
+<div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>DNA sequence Features</h3>
+                </div>
+
+<form method="post" id="framework_form">
+<!--<form method="post" id="framework_form" action="/featuresBoot">-->
+<div class="container">
+<h4>DNA Composition and Autocorrelation </h4>
+<select name="comp_select"  id='selUser' style="width: 25.3em;">
+    <optgroup label="Nucleic Acid Composition">
+  <option value="dinucleic" name="dinucleic">dinucleic(kmer_2)</option>
+    <option value="trinucleic" name="trinucleic">tri nucleic(kmer_3)</option>
+</optgroup>
+<optgroup label="Autocorrelation">
+  <option value="DCC" name="DCC">dinucleotide cross covariance(DCC)</option>
+<option value="DACC" name="DACC">dinucleotide auto-cross covariance(DACC)</option>
+<option value="TCC" name="TCC">trinucleotide cross covariance(TCC)</option>
+<option value="TACC" name="TACC">trinucleotide auto-cross covariance(TACC)</option>
+<option value="PseDNC" name="PseDNC">pseudo dinucleotide composition(PseDNC)</option>
+<option value="PseKNC" name="PseKNC">pseudo k-tuple nucleotide composition(PseKNC)</option>
+</optgroup>
+</select>
+    <h4>Labels</h4>
+    <div class="bs-multiselect">
+<select id = "mltislct2" name="comp_select" multiple = "multiple">
+    <option value="no_label" name="no_label">No Label</option>
+<option value="classical_label" name="classical">Classical</option>
+<option value="core_label" name="core">Pan-genome</option>
+<option value="Origin" name="Origin">Gene Origin</option>
+</select>
+</div>
+</div>
+<br>
+<br>
+<div style="width:200px;height:85px;margin-left:22px" class="btn1">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 14em;
+border-radius: 12px;" class="button button4" onclick="submitForm('/DNAseq)" id="bttn1">Submit for table</button>
+</div>
+    <div class="container">
+<h4>Choose analysis</h4>
+<select name="comp_analysis" style=" width: 25.3em;"  id='selUser1' class="form-control" >
+    <optgroup label="Graphical analysis">
+    <option value="none" style="color:black">Select one analysis</option>
+    <option value="count_dinucleic_box_plots">Count Dinucleic box plot</option>
+    <option value="count_tri_nucleic_box_plots">Count Tri nucleic box plot</option>
+    <option value="frequency_dinucleic_box_plots">Frequency Dinucleic box plot</option>
+    <option value="frequency_tri_nucleic_box_plots">Frequency Tri nucleic box plot</option>
+    </optgroup>
+</select></div>
+
+    <br>
+<br>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn2">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 14em;
+border-radius: 12px;" class="button button5" onclick="submitForm('/DNAseq_plot')"  id="bttn2">Submit for analysis</button>
+</div>
+
+<div style="width:200px;height:85px;margin-left:22px" class="btn3">
+<button style="background-color: #fff; /* Green */
+  border: none;
+  color: #7386D5;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px 1px;
+  cursor: pointer;
+  width: 14em;
+border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_DNAseq_plot')"  id="bttn3">Downsampled analysis</button>
+</div>
+
+</form>
+                <ul class="list-unstyled CTAs">
+                    <li><a href="static/collection_zip/nuc_seq_features.zip" class="download">Download source</a></li>
+                    <li><a href="static/collection_zip/All_data.zip" class="article">Download all</a></li>
+                </ul>
+            </nav>
+     <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="navbar-brand" href="/">Home</a></li>
+                                <li><a class="navbar-brand" href="/features">Features and Analysis</a></li>
+                                <!--<li><a href="/exploratory">Exploratory Analysis</a></li>-->
+                                <!--<li><a class="navbar-brand" href="#">Models</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <p style="color:blue;font-size:20px;">Please go through the below explanation for details on table and plot interpretations</p>
+                <h3>Table column interpretation:</h3>
+                <h4>1. kmer</h4>
+                <p>Basic kmer is the simplest approach to represent the DNAs, in which the DNA sequences are
+                represented as the occurrence frequencies of k neighboring nucleic acids.</p>
+                <h4>2. Autocorrelation </h4>
+                <p>Autocorrelation, as one of the multivariate modeling tools, can transform the DNA sequences
+                of different lengths into fixed-length vectors by measuring the correlation between any two
+                properties. Autocorrelation results in two kinds of variables: autocorrelation AC between
+                the same property, and cross-covariance CC between two different properties.</p>
+                <h4>    2.1. Dinucleotide-based auto covariance(DAC)</h4>
+                <h4>    2.2. Dinucleotide-based cross covariance (DCC)</h4>
+                <h4>    2.3. Dinucleotide-based auto-cross covariance (DACC)</h4>
+                <h4>    2.4. Trinucleotide-based auto covariance (TAC)</h4>
+                <h4>    2.5. Trinucleotide-based cross covariance (TCC)</h4>
+                <h4>    2.4. Trinucleotide-based auto-cross covariance (TACC)</h4>
+                <br>
+                <h4>3. Pseudo nucleic acid composition </h4>
+                <p>PseNAC is a kind of powerful approaches to represent the DNA sequences considering both
+                DNA local sequence-order information and long range or global sequence-order effects.</p>
+                <h4>    3.1. pseudo dinucleotide composition (PseDNC)</h4>
+                <h4>    3.2. pseudo ktuple nucleotide composition (PseKNC)</h4>
+                <br>
+                <h4>4. Labels </h4>
+                <p>The labels are the classes or the groups the genes are mapped into.The labels can act as both target variable or feature
+                as per the need of the user for solving their specific problem </p>
+                <h4>4.1 No Label</h4>
+                <p>This selection is provided to enable user to view the properties of all genes without labeling
+                    them into different gene categories or annotations. This is to let user examine the features of
+                    multiple genes and identify common patterns among them. As it involves the inspection of
+                all the genes therefore they work only for "Submit for analysis" button .</p>
+                <h4>4.2 Classical Genes</h4>
+                <p>Classical genes can be defined as most studied genes for visible mutant phenotype (for example: liguleless3). </p>
+                <h4>4.3 Pan-genome Genes </h4>
+                <p>A gene in a given taxonomic group is either present in every individual (core), or absent in at least a single
+                    individual (dispensable) and so on . </p>
+                <h4>4.4 Origin Genes </h4>
+                <p>Gene duplication is an important evolutionary mechanism allowing to provide new genetic material and thus
+                    opportunities to acquire new gene functions for an organism . There are different Origins of duplications
+                    such as WGD, Tandem and so on. </p>
+                <br>
+               <h3>Graph interpretations:</h3>
+                <h4>1. Count Dinucleic box plot</h4>
+                <p>The count Dinucleic box plot describes the number of dinucleotides within a DNA sequence.The plot helps to
+                visualize the counts of the occurrences of each possible di-mer for the chosen label sequences .</p>
+                <h4>2. Count Tri nucleic box plot</h4>
+                <p>The count Tri nucleic box plot describes the number of  tri nucleotides within a DNA sequence.The plot helps to
+                visualize the counts of the occurrences of each possible tri-mer for the chosen label sequences .</p>
+                <h4>3. Frequency Dinucleic box plot</h4>
+                <p>The Frequency Dinucleic box plot describes the fraction of each dinucleotide type within a DNA sequence. The fractions are calculated as:
+                <br>f(r) = Nrs/N <br>
+                where Nrs is the number of dinucleotide represented by dinucleotide type r and type s and N is the length of the
+                chosen labeled sequence.</p>
+
+                <h4>4. Frequency Tri nucleic box plot</h4>
+                <p>The Frequency tri nucleic box plot describes the fraction of each tri nucleotide type within a DNA sequence.
+                The fractions are calculated as:
+                <br>f(r) = Nrsh/N <br>
+                where Nrsh is the number of tri nucleotide represented by tri nucleotide  type r,type s and type h and N is the
+                length of the chosen labeled sequence.</p>
+
+                <h5>For further details on these features please go through the below pipeline :</h5>
+                <p>All the features are generated using the R package:  rDNAse Generating Various Numerical Representation Schemes
+                of DNA Sequences and custom python scripts . </p>
+
+
+                <!--<table id="example" class="display nowrap" width="100%"></table>-->
+
+            </div>
+    </div>
+
+<script>
+var dataSet = {{ select|safe }}
+
+var my_columns = [];
+
+$.each( dataSet[0], function( key, value ) {
+        var my_item = {};
+        my_item.data = key;
+        my_item.title = key;
+        my_columns.push(my_item);
+});
+
+$(document).ready(function() {
+  $('#example').DataTable({
+    "scrollX": true,
+    data: dataSet,
+    "columns": my_columns
+  });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+$('#mltislct2').multiselect({
+multiple: false,
+maxHeight: 200,
+buttonWidth:'350px',
+enableFiltering: true,
+enableCaseInsensitiveFiltering: true,
+includeSelectAllOption: false,
+filterPlaceholder:'Search Here..'
+
+});
+});
+</script>
+<script type="text/javascript">
+ $(document).ready(function () {
+     $('#sidebarCollapse').on('click', function () {
+         $('#sidebar').toggleClass('active');
+         $(this).toggleClass('active');
+     });
+ });
+</script>
+<script>
+ function submitForm(action) {
+    var form = document.getElementById('framework_form');
+    form.action = action;
+    form.submit();
+  }
+</script>
+
+<script>
+    $(document).ready(function(){
+
+  // Initialize select2
+  $("#selUser").select2();
+});
+</script>
+<script>
+    $(document).ready(function(){
+
+  // Initialize select2
+  $("#selUser1").select2();
+
+});
+</script>
+</body>
+</html>
