@@ -1,1 +1,1 @@
-#The Maize Feature Store (MFS) Application
+# The Maize Feature Store (MFS) Application
