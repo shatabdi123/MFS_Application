@@ -8,7 +8,7 @@
 
 ### \* The 'model' subfolder comprises of scripts to generate plots, tables and models.
 
-### \* The 'template' and the 'static' folder makes up the front-end of the application using html,css, boostarp, jquery and javascript.
+### \* The 'template' and the 'static' subfolder makes up the front-end of the application using html,css, boostarp, jquery and javascript.
 
 ## Cite
 
