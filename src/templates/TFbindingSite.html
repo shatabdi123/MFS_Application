@@ -6,6 +6,8 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
 <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<script src = "../js/TFbindingSite.js"></script> <!-- jp import page-specific js file -->
+<script src = "../js/menu.js"></script> <!-- jp - import menu.js on every page -->
 <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
 <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -49,7 +51,34 @@ text-justify: inter-word;
 <div class="container">
 <h4>TF Binding site Count</h4>
 <div class="bs-multiselect">
-<select id = "mltislct" name="comp_select" multiple = "multiple">
+
+Select option(s) from one of the two menus below.<br><br>
+1. Within Gene Count and All<br><select id="top_singleslct" name="top_singleslct" style=" background-color: #fff;
+  border: none;
+  color: Black;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16xpx;
+  cursor: pointer;
+  width: 310px;
+  height:35px;
+border-radius: 5px;">
+  <option value="none">None selected</option>
+    <optgroup label="Within Gene Count and All">
+        <option value="ARF">ARF</option>
+        <option value="BZIP">BZIP</option>
+        <option value="EREB">EREB</option>
+        <option value="LBD">LBD</option>
+        <option value="SBP">SBP</option>
+    </optgroup> 
+</select><br>
+
+<div style='margin-left: 125px; margin-top: 10px; font-weight: bold;'>OR</div>
+
+2. Other count options (select all that apply)
+<br><select id = "mltislct" name="comp_select" multiple = "multiple">
 <!--<option value="ID" name="ID">Gene ID</option>-->
     <optgroup label="Within Gene Count">
          <option value="ARF_10">ARF_10</option>
@@ -66,14 +95,6 @@ text-justify: inter-word;
 <option value="strand_KN1_ear_summit" name="strand_KN1_ear_summit">strand_KN1_ear_summit</option>
 <option value="strand_TB1_rep1_summit" name="strand_TB1_rep1_summit">strand_TB1_rep1_summit</option>
     </optgroup>
-    <optgroup label="Within Gene Count and All">
-        <option value="ARF">ARF</option>
-        <option value="BZIP">BZIP</option>
-        <option value="EREB">EREB</option>
-        <option value="LBD">LBD</option>
-        <option value="SBP">SBP</option>
-    </optgroup>
-
      <optgroup label="1Kb Count">
          <option value="1kb_ARF_10" name="1kb_ARF_10">1kb ARF_10</option>
 <option value="1kb_ARF_13" name="1kb_ARF_13">1kb ARF_13</option>
@@ -105,11 +126,11 @@ text-justify: inter-word;
     <option value="5kb_strand_TB1_rep1_summit" name="5kb_strand_TB1_rep1_summit">5kb strand_TB1_rep1_summit</option>
     </optgroup>
 
-</select>
+</select><br><br>
 </div>
     <h4>Labels</h4>
     <div class="bs-multiselect">
-<select id = "mltislct2" name="comp_select" multiple = "multiple">
+<select id = "mltislct2" name="comp_select1" multiple = "multiple">
     <option value="no_label" name="no_label">No Label</option>
 <option value="classical_label" name="classical">Classical</option>
 <option value="core_label" name="core">Pan-genome</option>

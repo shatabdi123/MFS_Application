@@ -10,6 +10,8 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+ <script src = "../js/menu.js"></script> <!-- jp - import menu.js on every page -->
+<script src = "../js/Dna_seq.js"></script> <!-- jp import page-specific js file -->
 <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
 <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 
@@ -98,15 +100,14 @@ text-justify: inter-word;
   width: 14em;
 border-radius: 12px;" class="button button4" onclick="submitForm('/DNAseq)" id="bttn1">Submit for table</button>
 </div>
-    <div class="container">
-<h4>Choose analysis</h4>
+    <div class="container" id="analysis_container">
+<h4>Choose analysis </h4>
 <select name="comp_analysis" style=" width: 25.3em;"  id='selUser1' class="form-control" >
     <optgroup label="Graphical analysis">
-    <option value="none" style="color:black">Select one analysis</option>
-    <option value="count_dinucleic_box_plots">Count Dinucleic box plot</option>
-    <option value="count_tri_nucleic_box_plots">Count Tri nucleic box plot</option>
-    <option value="frequency_dinucleic_box_plots">Frequency Dinucleic box plot</option>
-    <option value="frequency_tri_nucleic_box_plots">Frequency Tri nucleic box plot</option>
+      <option value='none' style='color:black'>Select a dinucleic analysis</option>
+      <option value='count_dinucleic_box_plots'>Count Dinucleic box plot</option>
+      <option value='frequency_dinucleic_box_plots'>Frequency Dinucleic box plot</option>
+    <!-- jp these options are generated dynamically in Dna_seq.js-->
     </optgroup>
 </select></div>
 
@@ -244,6 +245,8 @@ border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_D
             </div>
     </div>
 
+
+    
 <script>
 var dataSet = {{ select|safe }}
 
@@ -266,7 +269,10 @@ $(document).ready(function() {
 </script>
 
 <script>
+
+
 $(document).ready(function() {
+    
 $('#mltislct2').multiselect({
 multiple: false,
 maxHeight: 200,
@@ -310,5 +316,6 @@ filterPlaceholder:'Search Here..'
 
 });
 </script>
+
 </body>
 </html>

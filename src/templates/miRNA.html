@@ -6,6 +6,8 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
 <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+ <script src = "../js/menu.js"></script> <!-- jp - import menu.js on every page -->
+<script src = "../js/miRNA.js"></script> <!-- jp import page-specific js file -->
 <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
 <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -97,7 +99,9 @@ border-radius: 12px;" class="button button4" onclick="submitForm('/miRNA)" id="b
   height:35px;
 border-radius: 5px;" id="analysis">
     <option value="none" style="color:black">Select one analysis</option>
+	<optgroup label="Available for a max of 5 miRNA Counts features">
  <option value="histogram">Histogram</option>
+ </optgroup>
 </select>
         </div>
     <br>

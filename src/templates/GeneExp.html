@@ -8,6 +8,8 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
     <!-- Select2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+ <script src = "../js/menu.js"></script> <!-- jp - import menu.js on every page -->
+<script src = "../js/GeneExp.js"></script> <!-- jp import page-specific js file -->
 <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
 <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
@@ -100,9 +102,9 @@ border-radius: 12px;" class="button button4" onclick="submitForm('/GeneExp)" id=
     <div class="container">
         <label for="cluster" style="font-size: 18px;font-family: inherit;font-weight: 500;
     line-height: 1.1;
-    color: inherit;">Choose cluster:</label>
+    color: inherit; cursor: help;"  title="Cluster is only used for the Downsampled Hierarchical scatter plots analysis">Choose cluster:</label>
 <input type="number" id="cluster" name="cluster" style="color:black; width: 100px;  border-radius: 4px;
-box-shadow: none;border-color:white;"><br><br>
+box-shadow: none;border-color:white;" title="Cluster is only used for the Downsampled Hierarchical scatter plots analysis" min="0" max="10"><br><br>
 <h4>Choose analysis</h4>
 <select name="comp_analysis" style=" width: 25.3em;"  id='selUser1' class="form-control" >
     <optgroup label="Graphical analysis">

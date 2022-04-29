@@ -1,24 +1,24 @@
 import json
 import plotly
-from src.common.database import Database
-from src.models.seqFeature import DNA
-from src.models.seqplot import plot_seq
-from src.models.features import features
+from common.database import Database
+from models.seqFeature import DNA
+from models.seqplot import plot_seq
 import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
 import pickle
 import subprocess
 from flask import Flask, render_template, request
-from src.models.forms import ContactForm
+from models.forms import ContactForm
 import pandas as pd
 import sys
+import os
 
 __author__ = "shatabdi"
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 
-col_file = open("C:/Users/Shatabdi/Documents/B73_V5_data/final_data_for_Db/colfile_new.txt", "r")
+col_file = open("/var/www/html/MFS/src/col_names/colfile_new.txt", "r")
 col_name=[]
 for line in col_file:
     col_name.append(line.strip())
@@ -28,11 +28,11 @@ for line in col_file:
 app = Flask(__name__) #'__main__'
 app.secret_key = 'secretKey'
 
-model = pickle.load(open('C:/Users/Shatabdi/PycharmProjects/Maize_FeatureStore/src/models/model.pkl', 'rb'))
-scaler = pickle.load(open('C:/Users/Shatabdi/PycharmProjects/Maize_FeatureStore/src/models/scaler.pkl', 'rb'))
+model = pickle.load(open('/var/www/html/MFS/src/models/model.pkl', 'rb'))
+scaler = pickle.load(open('/var/www/html/MFS/src/models/scaler.pkl', 'rb'))
 
-model_seq = pickle.load(open('C:/Users/Shatabdi/PycharmProjects/Maize_FeatureStore/src/models/seq_model.pkl', 'rb'))
-scaler_seq = pickle.load(open('C:/Users/Shatabdi/PycharmProjects/Maize_FeatureStore/src/models/seq_scaler.pkl', 'rb'))
+model_seq = pickle.load(open('/var/www/html/MFS/src/models/seq_model.pkl', 'rb'))
+scaler_seq = pickle.load(open('/var/www/html/MFS/src/models/seq_scaler.pkl', 'rb'))
 
 @app.route('/') #www.mysite.com/api/
 def base_method():
@@ -163,7 +163,6 @@ def features_analysis():
 @app.before_first_request
 def initialize_databases():
     Database.initialize()
-    features.initialize()
 
 def Convert(lst):
     res_dct = {lst[i]: 1 for i in range(0, len(lst), 1)}
@@ -260,8 +259,8 @@ def handle_data():
     projectpath = request.form['projectFilepath']
     print(projectpath)
     # Change accordingly to your Rscript.exe & R script path
-    r_path = "C:\\Program Files\\R\\R-4.0.2\\bin\\x64\\Rscript"
-    script_path = "C:\\Users\\Shatabdi\\PycharmProjects\\Maize_FeatureStore\\src\\models\\max.R"
+    r_path = "/usr/lib64/R/bin/Rscript"
+    script_path = "/var/www/html/MFS/src/models/max.R"
     # Used as input arguments to the R code
     # args = ["42", "15", "87", "62"]
     args = [str(projectpath)]
@@ -271,7 +270,7 @@ def handle_data():
     result = subprocess.check_output(cmd, universal_newlines=True)
     # Display result
     print("The result is:", result)
-    seq_feature = pd.read_csv("C:/Users/Shatabdi/PycharmProjects/Maize_FeatureStore/GFF_File_Extractor/trying_protr.txt",
+    seq_feature = pd.read_csv("/var/www/html/MFS/src/trying_protr.txt",
                               sep = '\t')
     seq_feature.reset_index(inplace=True)
     seq_feature = seq_feature[["TC_SAL","TC_PAP","TC_LPL","TC_RSA","TC_VVA","TC_ARG"
@@ -295,14 +294,14 @@ def handle_data():
     DNApath = request.form['DNAcoding']
     print(DNApath)
 
-    script_path = "C:\\Users\\Shatabdi\\PycharmProjects\\Maize_FeatureStore\\src\\models\\maxDNA.R"
+    script_path = "/var/www/html/MFS/src/models/maxDNA.R"
     DNAargs = [str(DNApath)]
     cmd2 = [r_path, script_path] + DNAargs
     print(cmd2)
     result2 = subprocess.check_output(cmd2, universal_newlines=True)
     print("The result2 is:", result2)
     DNAseq_feature = pd.read_csv(
-        "C:/Users/Shatabdi/PycharmProjects/Maize_FeatureStore/GFF_File_Extractor/DNA.txt",
+        "/var/www/html/MFS/src/DNA.txt",
         sep='\t')
     DNAseq_feature.reset_index(inplace=True)
     DNAseq_feature = DNAseq_feature[["PseDNC_Xc1.AT", "PseKNC_3_Xc1.ACG", "PseDNC_Xc1.GG", "PseKNC_3_Xc1.TAG",
@@ -1138,7 +1137,11 @@ def downsampled_Insertions_plot():
 @app.route('/TFbindingSite',methods=['POST']) #www.mysite.com/api/
 def TFbindingSite_Table():
     if request.method == 'POST':
-        select = request.form.getlist('comp_select')
+        if 'top_singleslct' in request.form:
+            select = request.form.getlist('top_singleslct')
+        else:
+            select = request.form.getlist('comp_select')
+        select.append(request.form.getlist('comp_select1'))
         select = [i for i in select if i != "none"]
         analysis = request.form.getlist('comp_analysis')
         analysis = [i for i in analysis if i != "none"]
@@ -1152,7 +1155,11 @@ def TFbindingSite_Table():
 @app.route('/TFbindingSite_plot',methods=['POST']) #www.mysite.com/api/
 def TFbindingSite_plot():
     if request.method == 'POST':
-        select = request.form.getlist('comp_select')
+        if 'top_singleslct' in request.form:
+            select = request.form.getlist('top_singleslct')
+        else:
+            select = request.form.getlist('comp_select')
+        select.append(request.form.getlist('comp_select1'))
         analysis = request.form.getlist('comp_analysis')
         plot_sns = plot_seq.TF_count_plot(select,analysis)
         if (analysis[0] == "downsampled_dendogram_plots" or analysis[0] == "down_dendogram_plots" or
@@ -1169,7 +1176,11 @@ def TFbindingSite_plot():
 @app.route('/downsampled_TFbindingSite_plot',methods=['POST']) #www.mysite.com/api/
 def downsampled_TFbindingSite_plot():
     if request.method == 'POST':
-        select = request.form.getlist('comp_select')
+        if 'top_singleslct' in request.form:
+            select = request.form.getlist('top_singleslct')
+        else:
+            select = request.form.getlist('comp_select')
+        select.append(request.form.getlist('comp_select1'))
         analysis = request.form.getlist('comp_analysis')
         cluster = request.form.getlist('cluster')
         plot_sns = plot_seq.downsampled_TF_count_plot(select, analysis,cluster)
@@ -1534,7 +1545,7 @@ def get_contact():
         subject = request.form["subject"]
         message = request.form["message"]
         res = pd.DataFrame({'name': name, 'email': email, 'subject': subject, 'message': message}, index=[0])
-        res.to_csv('C:/Users/Shatabdi/PycharmProjects/Maize_FeatureStore/src/feedback/contactusMessage.csv', mode='a'
+        res.to_csv('/var/www/html/MFS/src/feedback/contactusMessage.csv', mode='a'
                    ,header=False)
         return render_template('contact.html', form=form)
     else:
@@ -1551,6 +1562,10 @@ def data_sources():
 @app.route('/tool_sources')
 def tool_sources():
     return render_template('tool_sources.html')
+
+@app.route('/favicon.ico') 
+def favicon(): 
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico')
 
 if __name__ == '__main__':
     app.run(debug=True)

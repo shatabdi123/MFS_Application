@@ -6,6 +6,8 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
 <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+ <script src = "../js/menu.js"></script> <!-- jp - import menu.js on every page -->
+<script src = "../js/Insertions.js"></script> <!-- jp import page-specific js file -->
 <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
 <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -94,9 +96,9 @@ border-radius: 12px;" class="button button4" onclick="submitForm('/Insertions)" 
     <div class="container">
         <label for="cluster" style="font-size: 18px;font-family: inherit;font-weight: 500;
     line-height: 1.1;
-    color: inherit;">Choose cluster:</label>
-<input type="number" id="cluster" name="cluster" style="color:black; width: 100px;  border-radius: 4px;
-box-shadow: none;border-color:white;"><br><br>
+    color: inherit; cursor: help;" title="Cluster is only used for the Downsampled Hierarchical scatter plots analysis">Choose cluster:</label>
+<input type="number" id="cluster" name="cluster" min="0" max="10" style="color:black; width: 100px;  border-radius: 4px;
+box-shadow: none;border-color:white;" title="Cluster is only used for the Downsampled Hierarchical scatter plots analysis"><br><br>
 <h4>Choose analysis</h4>
 <select class="analysis_menu" name="comp_analysis" style=" background-color: #fff;
   border: none;
@@ -111,24 +113,27 @@ box-shadow: none;border-color:white;"><br><br>
   height:35px;
 border-radius: 5px;" id="analysis">
     <option value="none" style="color:black">Select one analysis</option>
-    <option value="histogram">Histogram</option>
-    <option value="Count_and_distribution">Count and distribution</option>
-    <option value="Pair_plots">Pair plots</option>
-    <option value="Box_plots">Box plots</option>
-    <option value="Violin_plots">Violin plots</option>
-    <option value="Joint_plots">Joint plots</option>
-    <option value="Scatter_plots">Scatter plots</option>
-    <option value="Correlation_plots">Correlation plots</option>
-     <option value="Count_down_dendogram_plots">Downsampled Dendogram plot</option>
-    <option value="Count_down_hierarchial_scatter_plots">Downsampled Hierarchial Scatterplot</option>
-    <option value="Count_down_hierarchial_plots">Downsampled Hierarchial Heatmap</option>
-    <option value="Count_Heatmap_plots">Heatmap</option>
-    <option value="Count_Gene_PCA_2D_samples_plots">PCA 2D variables cluster</option>
-    <option value="PCA_2D_label_plots">PCA 2D observation cluster</option>
-    <option value="PCA_2D_biplot_plots">PCA 2D biplot cluster</option>
-    <option value="Count_Gene_PCA_3D_samples_plots">PCA 3D variables cluster</option>
-    <option value="PCA_3D_label_plots">PCA 3D observation cluster</option>
-
+		<optgroup label="Available for a max of 5 codon compositions">
+		<option value="histogram">Histogram</option>
+		<option value="Count_and_distribution">Count and distribution</option>
+		<option value="Pair_plots">Pair plots</option>
+		<option value="Box_plots">Box plots</option>
+		<option value="Violin_plots">Violin plots</option>
+		<option value="Joint_plots">Joint plots</option>
+		<option value="Scatter_plots">Scatter plots</option>
+		<option value="Correlation_plots">Correlation plots</option>
+	</optgroup>
+	<optgroup label='Available for any number of codon compositions'>
+		 <option value="Count_down_dendogram_plots">Downsampled Dendogram plot</option>
+		<option value="Count_down_hierarchial_scatter_plots">Downsampled Hierarchial Scatterplot</option>
+		<option value="Count_down_hierarchial_plots">Downsampled Hierarchial Heatmap</option>
+		<option value="Count_Heatmap_plots">Heatmap</option>
+		<option value="Count_Gene_PCA_2D_samples_plots">PCA 2D variables cluster</option>
+		<option value="PCA_2D_label_plots">PCA 2D observation cluster</option>
+		<option value="PCA_2D_biplot_plots">PCA 2D biplot cluster</option>
+		<option value="Count_Gene_PCA_3D_samples_plots">PCA 3D variables cluster</option>
+		<option value="PCA_3D_label_plots">PCA 3D observation cluster</option>
+	</optgroup>
 </select>
         </div>
     <br>
@@ -165,6 +170,10 @@ border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_I
 </div>
 
 </form>
+<!-- jp - add cluster error message -->
+<div id='cluster_error' style='display: none; font-weight: bold; color: crimson'>
+* Error: Please select a cluster for this analysis.
+</div>
                 <ul class="list-unstyled CTAs">
                     <li><a href="static/collection_zip/chrom_states_features.zip" class="download">Download source</a></li>
                     <li><a href="static/collection_zip/All_data.zip" class="article">Download all</a></li>

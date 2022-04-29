@@ -75,7 +75,7 @@ body {
               <span>What is meant by Downsampled analysis ?</span> </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+              <div class="accordion-body"> <strong>The ratio of label categories such as core to non-core genes or classical to other genes in each reference genome is frequently uneven, resulting in a bias favoring majority samples.</strong> For example, seventy-two percent of our genes are marked as core in the maize reference genome version B73v5, and twenty-eight percent are annotated as non-core ( near-core, dispensable and private genes). Therefore, we used the random down-sampling method to address the issue of unbalanced data during exploratory analysis and provided users with the option of “Downsampled analysis”. Random undersampling is a technique in which random samples are deleted from the majority class. This process can be repeated until the desired class distribution is achieved, such as an equal number of each category in the selected labels. It is important to note that the size of the downsampled data is different for each label (Classical/Pan-genome/Gene-Origin) selection as the size of the minority class is different in each label. </div>
             </div>
           </div>
           <div class="accordion-item">
@@ -86,7 +86,7 @@ body {
 				</button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-              <div class="accordion-body"> <strong>This is the second item's accordion body.</strong> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </div>
+              <div class="accordion-body"> <strong>A user can always download the selected subsection dataset or the complete dataset</strong>  via the “Download Source” or “Download All” choices. </div>
             </div>
           </div>
           <div class="accordion-item">
@@ -97,7 +97,9 @@ body {
 				</button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-              <div class="accordion-body"> <strong>This is the third item's accordion body.</strong> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis  </div>
+              <div class="accordion-body"> <strong>The "Modeling" module of MFS offers an "Advanced Model" form and a "Basic Model" form which allows users to make predictions for their genes based on certain inputs.</strong>
+                The "Advanced Model" utilized all omics features (a total of 14,407 features) while the "Basic Model" utilized a subset of omics features (a total of 10,271 features) comprised of
+                only the gene structure, gene sequence, and protein sequence data. Therefore the "Basic Model" is a more generalized model.  </div>
             </div>
           </div>
             <div class="accordion-item">
@@ -107,17 +109,32 @@ body {
               <span>Will the models perform equally well in prediciting Core or Non-Core genes in other species ?</span> </button>
             </h2>
             <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+              <div class="accordion-body"> <strong>In each modeling form ("Advanced" or "Basic"), users enter the necessary information for their gene of
+interest to classify it as core or non-core.</strong>  Prediction results are displayed at the bottom of the same
+form with a probability score between 0 and 1 (See Basic, Advanced). While the "Advanced" model is more
+ accurate and more efficient, the input features required by the "Advanced" model are specific to maize
+or the associated maize inbred lines. Therefore, the "Advanced" model may only work on maize genes or
+genes from closely associated species of maize. In addition, the generation of some of these features
+is time-consuming and requires programming skills. Therefore, to provide a highly versatile prediction
+platform for both novices and experts, we developed the "Basic" model that relies only on gene and
+ protein sequences and structural features. These genomic features are easily accessible or
+readily available in the form of GFF files. For users lacking the necessary sequence features,
+the “Basic” model (http://mfs.usda.iastate.edu/model_basic) also includes an input box that will
+auto-fill the form by taking in only the protein sequence and the coding sequence from the user.
+Because of this, the “Basic” model acts as a hassle-free prediction platform for a wide range of users. </div>
             </div>
           </div>
             <div class="accordion-item">
             <h2 class="accordion-header" id="headingFive">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <div class="circle-icon"> <i class="fa fa-question"></i> </div>
+              <div class="circle-icon"> <i class="fa fa-questi  on"></i> </div>
               <span>Can i perform any other analysis or modeling with this dataset ?</span> </button>
             </h2>
             <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+              <div class="accordion-body"> <strong>Maize Feature Store (MFS)systematically integrates over 14407 gene-based features based on the most recent maize multi-omics dataset
+                (version 5 of the B73 reference genome, or B73v5).</strong> Therefore providing non-experts with a suite of methods, modeling modules,
+                and datasets to find meaningful patterns from the maize omics data.  Users can freely download the clean, intergated maize omics dataset
+              to carry out their own specific analysis. </div>
             </div>
           </div>
             <div class="accordion-item">
@@ -127,7 +144,7 @@ body {
               <span>How to interpret the plots ?</span> </button>
             </h2>
             <div id="collapseSix" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+              <div class="accordion-body"> <strong>Details on the usage and interpretation of all the plots and tables are available on each of the MFS website webpages. </strong> For example: (http://mfs.usda.iastate.edu/Structure). </div>
             </div>
           </div>
             <div class="accordion-item">
@@ -137,7 +154,10 @@ body {
               <span>What does that probability score mean in both the basic and advanced model ?</span> </button>
             </h2>
             <div id="collapseSevn" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+              <div class="accordion-body"> <strong>In each modeling form ("Advanced" or "Basic"), users enter the necessary information for their gene of
+interest to classify it as core or non-core. Prediction results are displayed at the bottom of the same
+form with a probability score between 0 and 1 (See Basic, Advanced).</strong> A probability score closer to 0 or less than 0.5 indicate that the gene is non-core wheareas
+              a probability score closer to one or greater than 0.5 indicate that the gene is core. </div>
             </div>
           </div>
           <div class="accordion-item">
@@ -147,7 +167,9 @@ body {
               <span>Can predictions of more than one gene possible ?</span> </button>
             </h2>
             <div id="collapseEight" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+              <div class="accordion-body"> <strong>As of now our modeling module web interface allows the classification or predicition of single
+                gene at a time as core or non-core.</strong> But users willing to classify a set of genes at once may need to download the model from github
+              and run the model on their dataset using a python script. </div>
             </div>
           </div>
         </div>

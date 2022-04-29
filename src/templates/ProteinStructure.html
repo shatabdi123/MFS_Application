@@ -6,6 +6,8 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
 <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<script src = "../js/menu.js"></script> <!-- jp - import menu.js on every page -->
+<script src = "../js/ProteinStructure.js"></script> <!-- jp import page-specific js file -->
 <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"/>
 <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -60,7 +62,7 @@ text-justify: inter-word;
 </div>
     <h4>Labels</h4>
     <div class="bs-multiselect">
-<select id = "mltislct1" name="comp_select" multiple = "multiple">
+<select id = "mltislct2" name="comp_select" multiple = "multiple">
     <option value="no_label" name="no_label">No Label</option>
 <option value="classical_label" name="classical">Classical</option>
 <option value="core_label" name="core">Pan-genome</option>
@@ -104,8 +106,11 @@ box-shadow: none;border-color:white;"><br><br>
   height:35px;
 border-radius: 5px;" id="analysis">
     <option value="none" style="color:black">Select one analysis</option>
-     <option value="histogram">Histogram</option>
-    <option value="categorical_bar_chart">Categorical Bar chart</option>
+   <optgroup label='Available for "Signal Peptides" protein structure only'>
+    <option value="categorical_bar_chart" title='Select only Signal Peptides in the protein structure menu' disabled>Categorical Bar chart</option>
+   </optgroup>
+   <optgroup label='Available for a max of 5 protein structures'>
+    <option value="histogram">Histogram</option>
     <option value="Count_and_distribution">Count and distribution</option>
     <option value="Pair_plots">Pair plots</option>
     <option value="Box_plots">Box plots</option>
@@ -113,6 +118,8 @@ border-radius: 5px;" id="analysis">
     <option value="Joint_plots">Joint plots</option>
     <option value="Scatter_plots">Scatter plots</option>
     <option value="Correlation_plots">Correlation plots</option>
+   </optgroup>
+   <optgroup label='Available for any number of protein structures'>
     <option value="Count_down_dendogram_plots">Downsampled Dendogram plot</option>
     <option value="Count_down_hierarchial_scatter_plots">Downsampled Hierarchial Scatterplot</option>
       <option value="Count_down_hierarchial_plots">Downsampled Hierarchial Heatmap</option>
@@ -122,7 +129,7 @@ border-radius: 5px;" id="analysis">
     <option value="PCA_2D_biplot_plots">PCA 2D biplot cluster</option>
     <option value="Count_Gene_PCA_3D_samples_plots">PCA 3D variables cluster</option>
     <option value="PCA_3D_label_plots">PCA 3D observation cluster</option>
-
+   </optgroup>
 </select>
         </div>
     <br>
