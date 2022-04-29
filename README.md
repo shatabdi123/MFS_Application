@@ -1,6 +1,6 @@
 # The Maize Feature Store (MFS) Application
 
-### http://mfs.usda.iastate.edu/
+### https://mfs.maizegdb.org/
 
 ## The src folder contains all python and html code used to build the application.
 
