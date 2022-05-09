@@ -8,6 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/main.css">
       <!--add icon link -->
+      <script src = "../js/model_basic.js"></script> <!-- jp import page-specific js file -->
      <link rel = "icon" type = "image/x-icon" href ="static/forecast_logo.png">
     <title>Gene Prediction Model</title>
     <style>
@@ -33,21 +34,25 @@
           and the coding sequence in the input boxes.
         <b>[Note: For predicted value, please check the footer of the table.]</b></p>
         <br>
-        <p style="margin-left: 150px;">Enter your protein sequence for generating protein sequence features : </p>
+        <p style="margin-left: 150px;">Enter your protein sequence for generating protein sequence features (<a href="#!" onclick="example_protseq(document.getElementById('projectFilepath'));" style="color: blue; text-decoration: underline">example</a>): </p>
         <form  action="{{ url_for('handle_data') }}" method="post">
             <!--<input style=" margin: auto;display: block;" type="text" name="projectFilepath">-->
             <!--<input type="submit"></p>-->
           <!--<input type="submit"value="Submit" style="float: right;width: 150px;height: 40px;margin-top: 25px;margin-right: 20px;" />-->
            <div style="overflow: hidden;">
-           <input type="text" name="projectFilepath" style="width: 620px;
-            height: 100px; margin: auto;display: block;" />
+           <div id="prot_seq_error" style="display: none; color: crimson;">*Error: Invalid protein sequence. The character '<span style="font-weight:bold; white-space:nowrap;" id="prot_char_error"></span>' is not a valid character in AA sequence!</div>
+           <center>
+               <textarea name="projectFilepath" rows="10" cols="75" id="projectFilepath" style='font-family: monospace' onchange="validate_sequence(this,'prot');" onkeyup="validate_sequence(this,'prot');"></textarea>
+            </center>
            </div>
-          <p style="margin-left: 150px; ;margin-top: 25px">Enter your Coding sequence for generating DNA sequence features : </p>
+          <p style="margin-left: 150px; ;margin-top: 25px">Enter your Coding sequence for generating DNA sequence features (<a href="#!" onclick="example_dnaseq(document.getElementById('DNAcoding'));" style="color: blue; text-decoration: underline">example</a>): </p>
            <div style="overflow: hidden;">
-           <input type="text" name="DNAcoding" style="width: 620px;
-            height: 100px; margin: auto;display: block;" />
+           <div id="dna_seq_error" style="display: none; color: crimson;">
+                *Error: Invalid DNA sequence. The character '<span style="font-weight:bold; white-space:nowrap;" id="dna_char_error"></span>' is not a valid character in DNA sequence!
+            </div>
+           <center><textarea rows="10" cols="75" name="DNAcoding" id="DNAcoding" onchange="validate_sequence(this,'dna');" onkeyup="validate_sequence(this,'dna');"  style='font-family: monospace'></textarea></center>
            </div>
-          <input type="submit" style="width: 200px;height: 40px;margin-top: 25px;margin-left: 350px;"></p>
+          <input type="submit" id="seq_submit" style="width: 200px;height: 40px;margin-top: 25px;margin-left: 350px;"></p>
         </form>
         </form>
         <table class="t1">
@@ -63,7 +68,7 @@
                  <tr><td><label for = "UTR3length">3 Prime UTR Length :</label></td>
                   <td>
                     <span>
-                      <input  class="form-control" type= "text" name="UTR3length" placeholder="Value range: 0.00 - 8154.00" required="required" />
+                      <input  class="form-control" onchange="validate_range(this, 2);" type= "number" min="0.00" max="8154.00" step="0.01" name="UTR3length" placeholder="Value range: 0.00 - 8154.00" required="required" />
                     </span>
                 </td></tr>
         </div>
@@ -73,7 +78,7 @@
         <div class="col-sm-10">
           <tr><td><label for = "isoforms">Isoforms Count :</label></td>
             <td>
-          <span><input  class="form-control" type="text" name="isoforms" placeholder="Value range: 1.00 - 26.00" required="required" /></span>
+          <span><input onchange="validate_range(this, 2);" class="form-control" type="number" name="isoforms" max="26.00" min="1.00" step="0.01" placeholder="Value range: 1.00 - 26.00" required="required" /></span>
           </td></tr>
         </div>
       </div>
@@ -84,7 +89,7 @@
           <tr><td><label for = "UTR5length">5 prime UTR length:</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="UTR5length" placeholder="Value range: 0.00 - 4011.00" required="required" />
+          <input onchange="validate_range(this, 2);" class="form-control" type="number" name="UTR5length" min="0.00" max="4011.00" step="0.01" placeholder="Value range: 0.00 - 4011.00" required="required" />
         </span>
       </td></tr>
         </div>
@@ -95,7 +100,7 @@
         <tr><td><label for = "distance">Chromosomal distance:</label></td>
           <td>
           <span>
-          <input  class="form-control" type="text" name="distance" placeholder="Value range: -154163712.00 - 154114400.00" required="required" />
+          <input onchange="validate_range(this, 2);" class="form-control" type="number" name="distance" min="-154163712.00" max="154114400.00" step="0.01" placeholder="Value range: -154163712.00 - 154114400.00" required="required" />
           </span>
         </td></tr>
         </div>
@@ -106,7 +111,7 @@
           <tr><td><label for = "CTDD_prop7_G3_residue0">CTDD prop7 G3 residue0 :</label></td>
           <td>
           <span>
-          <input  class="form-control" type="text" name="CTDD_prop7_G3_residue0" placeholder="Value range: 0.018 - 24.41" required="required" value="{{CTDD_prop7_G3_residue0}}" />
+          <input  onchange="validate_range(this, 3);" class="form-control" type="number" name="CTDD_prop7_G3_residue0" min="0.018" max="24.41" step="0.01" placeholder="Value range: 0.018 - 24.41" required="required" value="{{CTDD_prop7_G3_residue0}}" />
           </span>
         </td></tr>
         </div>
@@ -117,7 +122,7 @@
           <tr><td><label for = "PseDNC_Xc1_AT">PseDNC Xc1 AT :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="PseDNC_Xc1_AT" placeholder="Value range: 0.00 - 0.117" required="required" value="{{PseDNC_Xc1_AT}}" />
+          <input  onchange="validate_range(this, 3);" class="form-control" type="number" name="PseDNC_Xc1_AT" min="0.00" max="0.117" step="0.001" placeholder="Value range: 0.00 - 0.117" required="required" value="{{PseDNC_Xc1_AT}}" />
           </span>
         </td></tr>
         </div>
@@ -128,7 +133,7 @@
           <tr><td><label for = "CTDD_prop1_G2_residue0">CTDD prop1 G2 residue0 :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="CTDD_prop1_G2_residue0" placeholder="Value range: 0.0368 - 29.629" required="required" value="{{CTDD_prop1_G2_residue0}}" />
+          <input onchange="validate_range(this, 4);" class="form-control" type="number" name="CTDD_prop1_G2_residue0" min="0.0368" max="29.629" step="0.01" placeholder="Value range: 0.0368 - 29.629" required="required" value="{{CTDD_prop1_G2_residue0}}" />
           </span>
         </td></tr>
         </div>
@@ -139,7 +144,7 @@
           <tr><td><label for = "PseKNC_3_Xc1_ACG">PseKNC 3 Xc1 ACG :</label></td>
           <td>
           <span>
-          <input  class="form-control" type="text" name="PseKNC_3_Xc1_ACG" placeholder="Value range: 0.00 - 0.02" required="required"  value="{{PseKNC_3_Xc1_ACG}}"/>
+          <input onchange="validate_range(this, 3);" class="form-control" type="number" name="PseKNC_3_Xc1_ACG" min="0.00" max="0.02" step="0.001" placeholder="Value range: 0.00 - 0.02" required="required"  value="{{PseKNC_3_Xc1_ACG}}"/>
           </span>
         </td></tr>
         </div>
@@ -150,7 +155,7 @@
           <tr><td><label for = "avgExonLength">Average Exon Length :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="avgExonLength" placeholder="Value range: 0.00 - 6414.00" required="required" />
+          <input onchange="validate_range(this, 2);" class="form-control" type="number" name="avgExonLength" min="0.00" max="6414.00" step="0.01" placeholder="Value range: 0.00 - 6414.00" required="required" />
           </span>
         </td></tr>
         </div>
@@ -161,7 +166,7 @@
           <tr><td><label for = "TC_SAL">Tri Codon SAL :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="TC_SAL" placeholder="Value range: 0.00 - 0.022" size="5" required="required" value="{{TC_SAL}}"/>
+          <input onchange="validate_range(this, 3);" class="form-control" type="number" name="TC_SAL" placeholder="Value range: 0.00 - 0.022" min="0.00" max="0.022" step="0.001" size="5" required="required" value="{{TC_SAL}}"/>
           </span>
         </td></tr>
         </div>
@@ -171,7 +176,7 @@
         <div class="col-sm-10">
           <tr><td><label for = "PseDNC_Xc1_GG">PseDNC Xc1 GG :</label></td>
             <td>
-          <span><input  class="form-control" type="text" name="PseDNC_Xc1_GG" placeholder="Value range: 0.00 - 0.236" required="required"  value="{{PseDNC_Xc1_GG}}"/></span>
+          <span><input onchange="validate_range(this, 3);" min="0.00" max="0.236" step="0.001" class="form-control" type="number" name="PseDNC_Xc1_GG" placeholder="Value range: 0.00 - 0.236" required="required"  value="{{PseDNC_Xc1_GG}}"/></span>
           </td></tr>
         </div>
       </div>
@@ -182,7 +187,7 @@
           <tr><td><label for = "PseKNC_3_Xc1_TAG">PseKNC 3 Xc1 TAG :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="PseKNC_3_Xc1_TAG" placeholder="Value range: 0.00 - 0.009" required="required" value="{{PseKNC_3_Xc1_TAG}}" />
+          <input onchange="validate_range(this, 4);" min="0.00" max="0.009" step="0.001" class="form-control" type="number" name="PseKNC_3_Xc1_TAG" placeholder="Value range: 0.00 - 0.009" required="required" value="{{PseKNC_3_Xc1_TAG}}" />
         </span>
       </td></tr>
         </div>
@@ -193,7 +198,7 @@
         <tr><td><label for = "CTDD_prop5_G2_residue0">CTDD prop5 G2 residue0 :</label></td>
           <td>
           <span>
-          <input  class="form-control" type="text" name="CTDD_prop5_G2_residue0" placeholder="Value range: 0.0184 - 3.636" required="required" value="{{CTDD_prop5_G2_residue0}}"/>
+          <input onchange="validate_range(this, 4);" class="form-control" type="number" name="CTDD_prop5_G2_residue0" min="0.0184" max="3.636" step="0.0001" placeholder="Value range: 0.0184 - 3.636" required="required" value="{{CTDD_prop5_G2_residue0}}"/>
           </span>
         </td></tr>
         </div>
@@ -204,7 +209,7 @@
           <tr><td><label for = "TC_PAP">Tri Codon PAP:</label></td>
           <td>
           <span>
-          <input  class="form-control" type="text" name="TC_PAP" placeholder="Value range: 0.00 - 0.0735" required="required" value="{{TC_PAP}}" />
+          <input onchange="validate_range(this, 4);" class="form-control" type="number" name="TC_PAP" placeholder="Value range: 0.00 - 0.0735" min="0.00" max="0.0735" step="0.0001" required="required" value="{{TC_PAP}}" />
           </span>
         </td></tr>
         </div>
@@ -215,7 +220,7 @@
           <tr><td><label for = "mRNAlength">Canonical mRNA Length :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="mRNAlength" placeholder="Value range: 213.00 - 299070.00" required="required" />
+          <input onchange="validate_range(this, 2);" class="form-control" type="number" name="mRNAlength" min="213.00" max="299070.00" step="0.01" placeholder="Value range: 213.00 - 299070.00" required="required" />
           </span>
         </td></tr>
         </div>
@@ -226,7 +231,7 @@
           <tr><td><label for = "CTDD_prop2_G3_residue0">CTDD prop2 G3 residue0 :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="CTDD_prop2_G3_residue0" placeholder="Value range: 0.0184 - 30.00" required="required" value="{{CTDD_prop2_G3_residue0}}" />
+          <input onchange="validate_range(this, 4);" class="form-control" type="number" name="CTDD_prop2_G3_residue0" min="0.0184" max="30.00" step="0.01" placeholder="Value range: 0.0184 - 30.00" required="required" value="{{CTDD_prop2_G3_residue0}}" />
           </span>
         </td></tr>
         </div>
@@ -237,7 +242,7 @@
           <tr><td><label for = "TC_LPL">Tri Codon LPL :</label></td>
           <td>
           <span>
-          <input  class="form-control" type="text" name="TC_LPL" placeholder="Value range: 0.00 - 0.0328" required="required" value="{{TC_LPL}}"/>
+          <input onchange="validate_range(this, 4);" min="0.00" max="0.0328" step="0.0001" class="form-control" type="number" name="TC_LPL" placeholder="Value range: 0.00 - 0.0328" required="required" value="{{TC_LPL}}"/>
           </span>
         </td></tr>
         </div>
@@ -248,7 +253,7 @@
           <tr><td><label for = "TC_RSA">Tri Codon RSA :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="TC_RSA" placeholder="Value range: 0.00 - 0.038" required="required" value="{{TC_RSA}}"/>
+          <input onchange="validate_range(this, 3);" min="0.00" max="0.038" step="0.001" class="form-control" type="number" name="TC_RSA" placeholder="Value range: 0.00 - 0.038" required="required" value="{{TC_RSA}}"/>
           </span>
         </td></tr>
         </div>
@@ -259,7 +264,7 @@
           <tr><td><label for = "PAAC_Xc1_A">PAAC Xc1 A :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="PAAC_Xc1_A" placeholder="Value range: 0.00 - 0.0425" size="5" required="required" value="{{PAAC_Xc1_A}}"/>
+          <input onchange="validate_range(this, 4);" min="0.00" max="0.0425" step="0.0001" class="form-control" type="number" name="PAAC_Xc1_A" placeholder="Value range: 0.00 - 0.0425" size="5" required="required" value="{{PAAC_Xc1_A}}"/>
           </span>
         </td></tr>
         </div>
@@ -269,7 +274,7 @@
           <tr><td><label for = "CTriad_VS111">CTriad VS111 :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="CTriad_VS111" placeholder="Value range: 0.00 - 1.00" required="required" value="{{CTriad_VS111}}"/>
+          <input onchange="validate_range(this, 2);" class="form-control" type="number" name="CTriad_VS111" min="0.00" max="1.00" step="0.01" placeholder="Value range: 0.00 - 1.00" required="required" value="{{CTriad_VS111}}"/>
           </span>
         </td></tr>
         </div>
@@ -280,7 +285,7 @@
           <tr><td><label for = "CTDD_prop7_G1_residue0">CTDD prop7 G1 residue0 :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="CTDD_prop7_G1_residue0" placeholder="Value range: 0.0394 - 21.83" required="required" value="{{CTDD_prop7_G1_residue0}}" />
+          <input onchange="validate_range(this, 4);" min="0.0394" max="21.83" step="0.0001" class="form-control" type="number" name="CTDD_prop7_G1_residue0" placeholder="Value range: 0.0394 - 21.83" required="required" value="{{CTDD_prop7_G1_residue0}}" />
           </span>
         </td></tr>
         </div>
@@ -291,7 +296,7 @@
           <tr><td><label for = "PAAC_Xc1_P">PAAC Xc1 P :</label></td>
           <td>
           <span>
-          <input  class="form-control" type="text" name="PAAC_Xc1_P" placeholder="Value range: 0.00 - 163.68" required="required" value="{{PAAC_Xc1_P}}" />
+          <input onchange="validate_range(this, 2);" min="0.00" max="163.68" step="0.01" class="form-control" type="number" name="PAAC_Xc1_P" placeholder="Value range: 0.00 - 163.68" required="required" value="{{PAAC_Xc1_P}}" />
           </span>
         </td></tr>
         </div>
@@ -302,7 +307,7 @@
           <tr><td><label for = "TC_VVA">Tri Codon VVA :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="TC_VVA" placeholder="Value range: 0.00 - 0.0307" size="5" required="required" value="{{TC_VVA}}"/>
+          <input  onchange="validate_range(this, 4);" min="0.00" max="0.0307" step="0.0001" class="form-control" type="number" name="TC_VVA" placeholder="Value range: 0.00 - 0.0307" size="5" required="required" value="{{TC_VVA}}"/>
           </span>
         </td></tr>
         </div>
@@ -313,7 +318,7 @@
           <tr><td><label for = "PseKNC_3_Xc1_TGT">PseKNC 3 Xc1 TGT :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="PseKNC_3_Xc1_TGT" placeholder="Value range: 0.00 - 0.021" size="5" required="required"  value="{{PseKNC_3_Xc1_TGT}}"/>
+          <input onchange="validate_range(this, 3);" min="0.00" max="0.021" step="0.001" class="form-control" type="number" name="PseKNC_3_Xc1_TGT" placeholder="Value range: 0.00 - 0.021" size="5" required="required"  value="{{PseKNC_3_Xc1_TGT}}"/>
           </span>
         </td></tr>
         </div>
@@ -324,7 +329,7 @@
           <tr><td><label for = "TC_ARG">Tri Codon ARG :</label></td>
             <td>
           <span>
-          <input  class="form-control" type="text" name="TC_ARG" placeholder="Value range: 0.00 - 0.0296" size="5" required="required" value="{{TC_ARG}}"/>
+          <input onchange="validate_range(this, 4);" min="0.00" max="0.0296" step="0.0001" class="form-control" type="number" name="TC_ARG" placeholder="Value range: 0.00 - 0.0296" size="5" required="required" value="{{TC_ARG}}"/>
           </span>
         </td></tr>
         </div>

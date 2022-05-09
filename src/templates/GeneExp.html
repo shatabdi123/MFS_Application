@@ -251,26 +251,20 @@ border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_G
                 <p>The labels are the classes or the groups the genes are mapped into.The labels can act as both target variable or feature
                 as per the need of the user for solving their specific problem </p>
                 <h4>10.1 No Label</h4>
-                <p>This selection is provided to enable user to view the properties of all genes without labeling
-                    them into different gene categories or annotations. This is to let user examine the features of
+                <p>This selection is provided to enable users to view the properties of all genes without labeling
+                    them into different gene categories or annotations. This is to let users examine the features of
                     multiple genes and identify common patterns among them. As it involves the inspection of
                 all the genes therefore they work only for "Submit for analysis" button .</p>
                 <h4>10.2 Classical Genes</h4>
-                <p>Classical genes can be defined as most studied genes for visible mutant phenotype (for example: liguleless3). </p>
+                <p>Classical genes can be defined as the most well-studied genes mainly for their visible mutant phenotype (for example: liguleless3). </p>
                 <h4>10.3 Pan-genome Genes </h4>
-                <p>A gene in a given taxonomic group is either present in every individual (core), or absent in at least a single
-                    individual (dispensable) and so on . </p>
+                <p>A gene in a given taxonomic group is either present in every individual (core), or absent in at least a single individual (dispensable). </p>
                 <h4>10.4 Origin Genes </h4>
-                <p>Gene duplication is an important evolutionary mechanism allowing to provide new genetic material and thus
-                    opportunities to acquire new gene functions for an organism . There are different Origins of duplications
-                    such as WGD, Tandem and so on. </p>
+                <p>Gene duplication is an important evolutionary mechanism allowing new genetic material and thus opportunities to acquire new gene functions for an organism. There are different origins of duplications such as whole-genome duplications, tandems, etc.  </p>
                 <br>
                <h3>Graph interpretations:</h3>
 
-                <p>To the top right corner of the plots/graphs, there are also options to download plot,
-                    zoom-out/zoom in, reset axes, autoscale, toggle spike lines, show closest data on hover, compare data on hover, box select,Pan
-                and lasso. Users can also select specific legends to view data only for the selected legends. Details on the interactive plot options are available here:
-                <br>
+                <p>To the top right corner of the plots/graphs, there are options to download plot, zoom-out/zoom in, reset axes, autoscale, toggle spike lines, show closest data on hover, compare data on hover, box select, pan and lasso. Users can also select specific legends to view data only for the selected legends. Details on the interactive plot options are available here:                 <br>
                     <a href = https://plotly.com/chart-studio-help/getting-to-know-the-plotly-modebar/>Interactive graph features</a>
 
                 </p>
@@ -299,7 +293,7 @@ border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_G
                 <p>Boxplots are a measure of how well distributed the data in the selected lab tissue's are. It divides the data set
                     into three quartiles. This graph represents the minimum, maximum, median, first quartile and third quartile in the
                     selected lab tissue. It is also useful in comparing the distribution of data across data sets by drawing
-                    boxplots for each of them such as the core, non-core, dispensible and private genes. Boxplots can be used to:<br>
+                    boxplots for each of them such as the core, non-core, dispensable and private genes. Boxplots can be used to:<br>
                     <ul>
                       <li>Identify outliers or anomalous data points</li>
                       <li>To determine if our data is skewed</li>
@@ -337,21 +331,21 @@ border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_G
                 <h4>7. Correlation plots</h4>
                 <p> Correlation heatmap is graphical representation of correlation matrix representing correlation between different
                     selected lab tissue's. Correlation ranges from -1 to +1. Values closer to zero means there is no linear
-                    trend between the two variables. The close to 1 the correlation is the more positively correlated they are;
+                    trend between the two variables. The closer to 1 the correlation is the more positively correlated they are;
                     that is as one increases so does the other and the closer to 1 the stronger this relationship is. Correlation
                 plots also alerts us to potential multicollinearity problems.</p>
-                <h4>8. Downsampled Dendogram plots</h4>
+                <h4>8. Downsampled Dendrogram plots</h4>
                 <p>A dendrogram is a type of tree diagram showing hierarchical clustering — relationships between similar sets of
                     genes based on the selected lab tissue's. They are frequently used in biology to show clustering between genes
-                    or samples, but they can represent any type of grouped data.The dendogram is built on downsampled data to save
+                    or samples, but they can represent any type of grouped data.The dendrogram is built on downsampled data to save
                 time and complexity. <br>
-                The branches in the dendogram are arranged according to how similar (or dissimilar) they are. branches that are
+                The branches in the dendrogram are arranged according to how similar (or dissimilar) they are. branches that are
                     close to the same height are similar to each other; branches with different heights are dissimilar —
-                    the greater the difference in height, the more dissimilarity. Also the different clusters fo genes based on the
+                    the greater the difference in height, the more dissimilarity. Also the different clusters of genes based on the
                     selected lab tissue's are marked by different colors.</p>
-                <h4>9. Downsampled Hierarchial Scatterplot</h4>
-                <p>The Hierarchial scatter plot is a type of pair plot that can be used to visualize the relationship of different
-                    pairs of lab tissue's on the clusters of genes formed during dendogram.Therefore to create Hierarchial
+                <h4>9. Downsampled Hierarchical Scatterplot</h4>
+                <p>The Hierarchical scatter plot is a type of pair plot that can be used to visualize the relationship of different
+                    pairs of lab tissue's on the clusters of genes formed during dendrogram.Therefore to create Hierarchial
                     scatterplot we need to input the number of clusters in the choose cluster input box. For
                     the Downsampled Hierarchical Scatter plot, we need to specify the number of clusters we
                     want to view. Moreover, this number of clusters corresponds to the number of clusters
@@ -360,8 +354,8 @@ border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_G
                     number of clusters, so every user can analyze the dataset based on how many clusters
                     they believe the selected data is forming .
                 </p>
-                <h4>10. Downsampled Hierarchial Heatmap</h4>
-                <p>Hierarchical clustering heatmap are an intuitive way to visualize information from complex data. It’s also called
+                <h4>10. Downsampled Hierarchical Heatmap</h4>
+                <p>Hierarchical clustering heatmap is an intuitive way to visualize information from complex data. It’s also called
                     a false colored image, where data values are transformed to color scale. Heat maps allow us to simultaneously
                     visualize clusters of samples(selected lab tissue's) in the column and features (genes) in the rows. <br>First
                     hierarchical clustering is done of both the rows and the columns of the data matrix. The columns/rows of the
@@ -380,18 +374,18 @@ border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_G
                     into a new set of uncorrelated variables called principal component (PC) while retaining the most possible
                     variation. <br>
                     The first component has the largest variance followed by the second component and so on.
-                    The first few components retain most of the variation, which is easy to visualize and summarise the feature
+                    The first few components retain most of the variation, which is easy to visualize and summarize the features
                     of original high-dimensional datasets in low-dimensional space. PCA helps to assess which original samples are
                     similar and different from each other. <br>
                     In our case when the selected number of lab tissue's are higher than 2 then, it is arduous to visualize them at
                     the same time to interpret the genes. PCA transforms them into a new set of variables (PCs) with top PCs
                     having the highest variation. PCs are ordered which means that the first few PCs (generally first 3 PCs but
-                    can be more) contribute most of the variance present in the the original high-dimensional dataset. These top
+                    can be more) contribute most of the variance present in the original high-dimensional dataset. These top
                     first 2 or 3 PCs can be plotted easily and summarize the features of all original variables (selected lab tissue's).
 </P>
                 <h4>11. PCA 2D variables cluster</h4>
                  <p>
-                    A PCA 2D variables cluster  plot shows how strongly each characteristic or variables
+                    A PCA 2D variables cluster  plot shows how strongly each characteristic or variable
                     influences a principal component. In the plot we can see these vectors(variables)
                     are pinned at the origin of PCs (PC1 = 0 and PC2 = 0). Their project values on each PC show
                     how much weight they have on that PC.
@@ -414,14 +408,14 @@ border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_G
                     to find out what produces the differences among clusters. <br>
                     Observations further out are either outliers or naturally extreme observations. Plot observations are annotated with shapes
                     and colors to highlight gene models and gene types for example (Classical/Others). In this way, we can easily hover
-                    over any data point, especially outliers, to find gene models with extreme observation values across various samples types.
+                    over any data point, especially outliers, to find gene models with extreme observation values across various sample types.
                     (selected lab tissue's)
 
                 </p>
                 <h4>13. PCA 2D biplot cluster</h4>
                <p> PCA biplot = PCA observations plot + variable plot. <br>
-                    we can probably notice that a PCA biplot simply merge an usual observations PCA plot with a plot of
-                    varaiables. The arrangement is like this: <br>
+                    we can probably notice that a PCA biplot simply merges an usual observations PCA plot with a plot of
+                    variables. The arrangement is like this: <br>
 
                     <b>*</b>Bottom axis: PC1 score. <br>
                     <b>*</b> Left axis: PC2 score. <br>
@@ -434,17 +428,17 @@ border-radius: 12px;" class="button button6" onclick="submitForm('/downsampled_G
                     <b>*</b> When two vectors are close, forming a small angle, the two variables they represent are positively
                     correlated. <br>
                     <b>*</b>If they meet each other at 90°, they are not likely to be correlated. <br>
-                    <b>*</b>When they diverge and form a large angle (close to 180°), they are negative correlated.
+                    <b>*</b>When they diverge and form a large angle (close to 180°), they are negatively correlated.
                 </p>
 
                 <h4>14. PCA 3D variables cluster</h4>
-                <p> This is similar to the PCA 2D variables cluster plot but now instead of two pricipal compotents, we can have three PC'S that contribute to
-                    most of the variance present in the the original high-dimensional dataset. These top
+                <p> This is similar to the PCA 2D variables cluster plot but now instead of two  principal components, we can have three PC'S that contribute to
+                    most of the variance present in the original high-dimensional dataset. These top
                     3 PCs can be plotted easily in 3 dimensional space and summarize the features of all original variables
                     (selected lab tissue's) .</p>
                 <h4>15. PCA 3D observation cluster</h4>
-                <p> This is similar to the PCA 2D observation cluster but now instead of two pricipal compotents, we can have three PC'S that contribute to
-                    most of the variance present in the the original high-dimensional dataset. These top
+                <p> This is similar to the PCA 2D observation cluster but now instead of two  principal components, we can have three PC'S that contribute to
+                    most of the variance present in the original high-dimensional dataset. These top
                     3 PCs can be plotted easily in 3 dimensional space and summarize the variance in the observations . <br>
                  A PCA 3D observation cluster plot displays how much variation each principal component captures from
                     the data. If the first three PCs are sufficient to describe the essence of the data.</p>
