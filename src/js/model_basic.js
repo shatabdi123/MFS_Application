@@ -5,6 +5,9 @@
  */
 function validate_range(ele, num_decimals) {
     console.log("ele = " + ele);
+    return;
+    /** ranges were removed, and so this function is no longer needed
+    
     var val = Number.parseFloat(ele.value);
     var min = Number.parseFloat(ele.min);
     var max = Number.parseFloat(ele.max);
@@ -19,6 +22,8 @@ function validate_range(ele, num_decimals) {
         console.log('integer found, parsing as float');
         ele.value = val.toFixed(num_decimals);
     }
+    
+    */
 }
 
 function validate_sequence(ele, seq_type) {
