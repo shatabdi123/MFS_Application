@@ -197,6 +197,7 @@ function cluster_change() {
 function example_GeneName(a_ele, text_ele) {
     var gene_id = a_ele.innerHTML;
     text_ele.value = gene_id;
+    topmenu_change();
 }
 
 /**
@@ -210,8 +211,8 @@ function validate_genes(genes) {
     if (split_test[1] != null) {
         split_test[1] = split_test[1].replace(/\s/g, "");
     }
-    //console.log("split_test[1] = " + split_test[1] + "; typeof split_test = " + typeof(split_test) + "; split_test.length = " + split_test.length);
-    if (split_test[1] == genes[i] && split_test[1] != "" && split_test[1] != null) {
+    console.log("split_test[1] = " + split_test[1] + "; typeof split_test = " + typeof(split_test) + "; split_test.length = " + split_test.length + "split_test[0] = " + split_test[0]);
+    if (split_test[0] == genes[i]) {
         //Error invalid v5 gene model format
         disable_button("bttn2", error_messages["gene_validate"]);
         add_error("bttn2", error_messages["gene_validate"]);
